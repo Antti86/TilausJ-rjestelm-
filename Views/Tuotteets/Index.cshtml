@@ -7,19 +7,40 @@
 
 <h2>Kaikki Tuotteet</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<div class="d-flex">
 
-<div class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">@ViewBag.Sort</a>
-    <div class="dropdown-menu">
-        <a class="dropdown-item" @Html.ActionLink("A-Ö", "Index", new { sortOrder = "A-Ö" }) </a>
-        <a class="dropdown-item" @Html.ActionLink("Ö-A", "Index", new { sortOrder = "Ö-A" }) </a>
-        <a class="dropdown-item" @Html.ActionLink("Kallein ensin", "Index", new { sortOrder = "Kallein ensin" })</a>
-        <a class="dropdown-item" @Html.ActionLink("Halvin ensin", "Index", new { sortOrder = "Halvin ensin" })</a>
-        <div class="dropdown-divider"></div>
+    <div>
+        <label style="font-size: 150%">Etsi Tuote</label>
+
+        <form class="d-flex">
+            
+            <input class="form-control me-sm-2" type="text" name="SearchString" value=@ViewBag.Search >
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+        </form>
     </div>
+
+
+    <div class="nav-item dropdown" style="margin-left: 20%">
+        <label style="font-size: 150%">Järjestele</label>
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">@ViewBag.Sort</a>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" @Html.ActionLink("A-Ö", "Index", new { sortOrder = "A-Ö", searchString = ViewBag.Search }) </a>
+            <a class="dropdown-item" @Html.ActionLink("Ö-A", "Index", new { sortOrder = "Ö-A", searchString = ViewBag.Search }) </a>
+            <a class="dropdown-item" @Html.ActionLink("Kallein ensin", "Index", new { sortOrder = "Kallein ensin", searchString = ViewBag.Search })</a>
+            <a class="dropdown-item" @Html.ActionLink("Halvin ensin", "Index", new { sortOrder = "Halvin ensin", searchString = ViewBag.Search })</a>
+            <div class="dropdown-divider"></div>
+        </div>
+    </div>
+
+    <h3 style="margin-left: 30%">
+        @Html.ActionLink("Create New", "Create")
+    </h3>
+
+
+
+
+
+
 </div>
 <br />
 
@@ -37,23 +58,24 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nimi)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ahinta)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Kuva)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TuoteID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.TuoteID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TuoteID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nimi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ahinta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Kuva)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.TuoteID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.TuoteID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.TuoteID })
+            </td>
+        </tr>
+    }
 
 </table>

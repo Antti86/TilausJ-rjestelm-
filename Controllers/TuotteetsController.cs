@@ -17,11 +17,16 @@ namespace TilausJärjestelmä.Controllers
 
 
         // GET: Tuotteets
-        public ActionResult Index(string sortOrder)
+        public ActionResult Index(string sortOrder, string searchString)
         {
-            
             var tuotteet = from t in db.Tuotteet
                            select t;
+            ViewBag.Search = searchString;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                tuotteet = tuotteet.Where(s => s.Nimi.Contains(searchString));
+            }
+
             ViewBag.Sort = sortOrder;
             switch (sortOrder)
             {
