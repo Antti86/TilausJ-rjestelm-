@@ -15,9 +15,36 @@ namespace TilausJärjestelmä.Controllers
         private TilausDBEntities db = new TilausDBEntities();
 
         // GET: Asiakkaats
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string searchString)
         {
-            var asiakkaat = db.Asiakkaat.Include(a => a.Postitoimipaikat);
+            var asiakkaat = from a in db.Asiakkaat
+                           select a;
+            asiakkaat = db.Asiakkaat.Include(a => a.Postitoimipaikat);
+            ViewBag.Search = searchString;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                asiakkaat = asiakkaat.Where(s => s.Nimi.Contains(searchString));
+            }
+            ViewBag.Sort = sortOrder;
+            switch (sortOrder)
+            {
+                case "A-Ö":
+                    asiakkaat = asiakkaat.OrderBy(t => t.Nimi);
+                    break;
+                case "Ö-A":
+                    asiakkaat = asiakkaat.OrderByDescending(t => t.Nimi);
+                    break;
+                case "Osoitteen mukaan":
+                    asiakkaat = asiakkaat.OrderBy(t => t.Osoite);
+                    break;
+                case "Postitoimipaikan mukaan":
+                    asiakkaat = asiakkaat.OrderBy(t => t.Postitoimipaikat.Postitoimipaikka);
+                    break;
+                default:
+                    asiakkaat = asiakkaat.OrderBy(t => t.Nimi);
+                    ViewBag.Sort = "A-Ö";
+                    break;
+            }
             return View(asiakkaat.ToList());
         }
 

@@ -14,8 +14,6 @@ namespace TilausJärjestelmä.Controllers
     {
         private TilausDBEntities db = new TilausDBEntities();
 
-
-
         // GET: Tuotteets
         public ActionResult Index(string sortOrder, string searchString)
         {
