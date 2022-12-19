@@ -128,6 +128,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AsiakkaatsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PostitoimipaikatsController.cs" />
     <Compile Include="Controllers\TuotteetsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -250,6 +251,11 @@
     <Content Include="Views\Asiakkaats\Details.cshtml" />
     <Content Include="Views\Asiakkaats\Edit.cshtml" />
     <Content Include="Views\Asiakkaats\Index.cshtml" />
+    <Content Include="Views\Postitoimipaikats\Create.cshtml" />
+    <Content Include="Views\Postitoimipaikats\Delete.cshtml" />
+    <Content Include="Views\Postitoimipaikats\Details.cshtml" />
+    <Content Include="Views\Postitoimipaikats\Edit.cshtml" />
+    <Content Include="Views\Postitoimipaikats\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
