@@ -14,9 +14,9 @@ namespace TilausJärjestelmä.Controllers
     public class PostitoimipaikatsController : Controller
     {
         private TilausDBEntities db = new TilausDBEntities();
-
+        
         // GET: Postitoimipaikats
-        public ActionResult Index(string sortOrder, string searchString)
+        public ActionResult Index(string sortOrder, string searchString, int page = 1)
         {
             var postipaikat = from a in db.Postitoimipaikat
                             select a;
@@ -45,6 +45,13 @@ namespace TilausJärjestelmä.Controllers
                     ViewBag.Sort = "A-Ö";
                     break;
             }
+            const int pElements = 30;
+            int begin = pElements * page;
+            int numOfPages = postipaikat.Count() / pElements;
+            ViewBag.nPages = numOfPages;
+            ViewBag.CurrentPage = page;
+            postipaikat = postipaikat.Skip(begin).Take(pElements);
+
             return View(postipaikat);
         }
 
