@@ -1,22 +1,17 @@
 ﻿@model IEnumerable<TilausJärjestelmä.Models.Postitoimipaikat>
 
-@{
-    ViewBag.Title = "Index";
-}
-
-<h2>Postitoimipaikat</h2>
+<h2>Postitoimipaikat (@ViewBag.AllItems)</h2>
 
 <div class="d-flex">
-
+                @* Etsintä boksi! *@
     <div>
         <label style="font-size: 150%">Etsi Postitoimipaikka</label>
-
         <form class="d-flex">
             <input class="form-control me-sm-2" type="text" name="SearchString" value=@ViewBag.Search>
             <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
         </form>
     </div>
-
+                 @* Lajittelu valikko! *@
     <div class="nav-item dropdown" style="margin-left: 20%">
         <label style="font-size: 150%">Järjestele</label>
         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">@ViewBag.Sort</a>
@@ -35,6 +30,8 @@
             <div class="dropdown-divider"></div>
         </div>
     </div>
+        
+        @* Create toiminto! *@
     <h3 style="margin-left: 30%">
         @Html.ActionLink("Create New", "Create")
     </h3>
@@ -55,7 +52,6 @@
 
         </th>
     </tr>
-
     @foreach (var item in Model)
     {
         <tr>
@@ -72,17 +68,14 @@
             </td>
         </tr>
     }
-
 </table>
 
+                        @* Sivu navigointi ja järjestely! *@
 <div class="d-flex">
-
-
     <nav aria-label="Page-Nav" style="overflow:auto; box-sizing:border-box" >
         <ul class="pagination">
             @for (int i = 1; i <= ViewBag.nPages; i++)
             {
-
                 if (i == ViewBag.CurrentPage)
                 {
                     <li class="page-item active">
@@ -101,8 +94,4 @@
         </ul>
     </nav>
 </div>
-<script>
-
-
-</script>
 

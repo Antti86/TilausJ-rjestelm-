@@ -15,10 +15,11 @@ namespace TilausJärjestelmä.Controllers
         private TilausDBEntities db = new TilausDBEntities();
 
         // GET: Tuotteets
-        public ActionResult Index(string sortOrder, string searchString)
+        public ActionResult Index(string sortOrder, string searchString, int page = 1)
         {
             var tuotteet = from t in db.Tuotteet
                            select t;
+            ViewBag.AllItems = tuotteet.Count().ToString();
             ViewBag.Search = searchString;
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -45,6 +46,15 @@ namespace TilausJärjestelmä.Controllers
                     ViewBag.Sort = "A-Ö";
                     break;
             }
+
+            //SIVUTTAMIS RUTIINIT
+
+            const int pElements = 30;       //Määrittää montako elementtiä yhdellä sivulla
+            int begin = pElements * page - pElements;   //Laskee alku indexin mistä aloitetaan lisäämään elementtejä sivulle
+            int numOfPages = tuotteet.Count() / pElements;   //Laskee montako sivua on
+            ViewBag.nPages = numOfPages;
+            ViewBag.CurrentPage = page;
+            tuotteet = tuotteet.Skip(begin).Take(pElements);  //Suodattaa sivunäkymän sivu numeron ja elementti määrän mukaan
             return View(tuotteet.ToList());
         }
 

@@ -1,11 +1,6 @@
 ﻿@model IEnumerable<TilausJärjestelmä.Models.Tuotteet>
 
-@{
-    ViewBag.Title = "Index";
-
-}
-
-<h2>Kaikki Tuotteet</h2>
+<h2>Kaikki Tuotteet (@ViewBag.AllItems)</h2>
 
 <div class="d-flex">
 
@@ -24,10 +19,17 @@
         <label style="font-size: 150%">Järjestele</label>
         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">@ViewBag.Sort</a>
         <div class="dropdown-menu">
-            <a class="dropdown-item" @Html.ActionLink("A-Ö", "Index", new { sortOrder = "A-Ö", searchString = ViewBag.Search }) </a>
-            <a class="dropdown-item" @Html.ActionLink("Ö-A", "Index", new { sortOrder = "Ö-A", searchString = ViewBag.Search }) </a>
-            <a class="dropdown-item" @Html.ActionLink("Kallein ensin", "Index", new { sortOrder = "Kallein ensin", searchString = ViewBag.Search })</a>
-            <a class="dropdown-item" @Html.ActionLink("Halvin ensin", "Index", new { sortOrder = "Halvin ensin", searchString = ViewBag.Search })</a>
+            <a class="dropdown-item" @Html.ActionLink("A-Ö", "Index",
+                                    new { sortOrder = "A-Ö", searchString = ViewBag.Search, Page = ViewBag.CurrentPage }) </a>
+
+            <a class="dropdown-item" @Html.ActionLink("Ö-A", "Index",
+                                    new { sortOrder = "Ö-A", searchString = ViewBag.Search, Page = ViewBag.CurrentPage }) </a>
+
+            <a class="dropdown-item" @Html.ActionLink("Kallein ensin", "Index",
+                                    new { sortOrder = "Kallein ensin", searchString = ViewBag.Search, Page = ViewBag.CurrentPage })</a>
+
+            <a class="dropdown-item" @Html.ActionLink("Halvin ensin", "Index",
+                                    new { sortOrder = "Halvin ensin", searchString = ViewBag.Search, Page = ViewBag.CurrentPage })</a>
             <div class="dropdown-divider"></div>
         </div>
     </div>
@@ -74,3 +76,27 @@
     }
 
 </table>
+
+<div class="d-flex">
+    <nav aria-label="Page-Nav" style="overflow:auto; box-sizing:border-box">
+        <ul class="pagination">
+            @for (int i = 1; i <= ViewBag.nPages; i++)
+            {
+                if (i == ViewBag.CurrentPage)
+                {
+                    <li class="page-item active">
+                        <a class="page-link" @Html.ActionLink(i.ToString(), "Index",
+                                            new { sortOrder = ViewBag.Sort, searchString = ViewBag.Search, page = i })
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item">
+                        <a class="page-link" @Html.ActionLink(i.ToString(), "Index",
+                                            new { sortOrder = ViewBag.Sort, searchString = ViewBag.Search, page = i })
+                    </li>
+                }
+            }
+        </ul>
+    </nav>
+</div>

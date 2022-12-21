@@ -18,15 +18,22 @@ namespace TilausJärjestelmä.Controllers
         // GET: Postitoimipaikats
         public ActionResult Index(string sortOrder, string searchString, int page = 1)
         {
-            var postipaikat = from a in db.Postitoimipaikat
+            var postipaikat = from a in db.Postitoimipaikat     //Hakee kaikki postitoimipaikat tietokannasta
                             select a;
-            ViewBag.Search = searchString;
-            if (!String.IsNullOrEmpty(searchString))
+            ViewBag.AllItems = postipaikat.Count().ToString();
+
+            //ETSINTÄ RUTIINI
+            ViewBag.Search = searchString;  //Päivittää etsintäboxin tekstin
+            if (!String.IsNullOrEmpty(searchString)) 
             {
+                //Jos etsintä teksti ei ole tyhjä niin suodattaa tietokannasta tulokset hakukriteereillä
                 postipaikat = postipaikat.Where(s => s.Postitoimipaikka.Contains(searchString) || s.Postinumero.Contains(searchString));
             }
-            ViewBag.Sort = sortOrder;
-            switch (sortOrder)
+            ViewBag.Sort = sortOrder;   //Tallentaa järjestely perusteet
+            int test = postipaikat.Count();            
+                        //JÄRJESTELY RUTIINI
+            switch (sortOrder)  //Järjestellään tietokanta näkymä sen mukaan mikä on järjestely peruste
+                //Oletuksena ja ohjelman käynnistyessä järjestely peruste on "A-Ö" nouseva
             {
                 case "A-Ö":
                     postipaikat = postipaikat.OrderBy(t => t.Postitoimipaikka);
@@ -45,13 +52,16 @@ namespace TilausJärjestelmä.Controllers
                     ViewBag.Sort = "A-Ö";
                     break;
             }
-            const int pElements = 30;
-            int begin = pElements * page;
-            int numOfPages = postipaikat.Count() / pElements;
-            ViewBag.nPages = numOfPages;
-            ViewBag.CurrentPage = page;
-            postipaikat = postipaikat.Skip(begin).Take(pElements);
+            int test2 = postipaikat.Count();
+            //SIVUTTAMIS RUTIINIT
 
+            const int pElements = 30;       //Määrittää montako elementtiä yhdellä sivulla
+            int begin = pElements * page - pElements;   //Laskee alku indexin mistä aloitetaan lisäämään elementtejä sivulle
+            int numOfPages = postipaikat.Count() / pElements;   //Laskee montako sivua on
+            ViewBag.nPages = numOfPages;    
+            ViewBag.CurrentPage = page;
+            postipaikat = postipaikat.Skip(begin).Take(pElements);  //Suodattaa sivunäkymän sivu numeron ja elementti määrän mukaan
+            int test3 = postipaikat.Count();
             return View(postipaikat);
         }
 
