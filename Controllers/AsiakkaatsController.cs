@@ -52,7 +52,7 @@ namespace TilausJärjestelmä.Controllers
 
             const int pElements = 30;       //Määrittää montako elementtiä yhdellä sivulla
             int begin = pElements * page - pElements;   //Laskee alku indexin mistä aloitetaan lisäämään elementtejä sivulle
-            int numOfPages = asiakkaat.Count() / pElements;   //Laskee montako sivua on
+            int numOfPages = asiakkaat.Count() / pElements + 1;   //Laskee montako sivua on
             ViewBag.nPages = numOfPages;
             ViewBag.CurrentPage = page;
             asiakkaat = asiakkaat.Skip(begin).Take(pElements);  //Suodattaa sivunäkymän sivu numeron ja elementti määrän mukaan

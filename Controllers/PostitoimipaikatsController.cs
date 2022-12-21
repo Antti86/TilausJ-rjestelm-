@@ -57,7 +57,7 @@ namespace TilausJärjestelmä.Controllers
 
             const int pElements = 30;       //Määrittää montako elementtiä yhdellä sivulla
             int begin = pElements * page - pElements;   //Laskee alku indexin mistä aloitetaan lisäämään elementtejä sivulle
-            int numOfPages = postipaikat.Count() / pElements;   //Laskee montako sivua on
+            int numOfPages = postipaikat.Count() / pElements + 1;   //Laskee montako sivua on, ei ole testattu jos numero on jaollinen 30
             ViewBag.nPages = numOfPages;    
             ViewBag.CurrentPage = page;
             postipaikat = postipaikat.Skip(begin).Take(pElements);  //Suodattaa sivunäkymän sivu numeron ja elementti määrän mukaan
@@ -95,6 +95,13 @@ namespace TilausJärjestelmä.Controllers
         {
             if (ModelState.IsValid)
             {
+                var check = from i in db.Postitoimipaikat
+                            select i.Postinumero;
+                if (check.Contains(postitoimipaikat.Postinumero))
+                {
+                    ModelState.AddModelError("postinumero", "Postinumero on jo käytössä");
+                    return View(postitoimipaikat);
+                }
                 db.Postitoimipaikat.Add(postitoimipaikat);
                 db.SaveChanges();
                 return RedirectToAction("Index");
