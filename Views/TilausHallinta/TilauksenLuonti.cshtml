@@ -1,0 +1,18 @@
+﻿
+@model TilausJärjestelmä.Models.TilausLuontiVM
+
+@{
+    ViewBag.Title = "TilauksenLuonti";
+}
+
+<h2>Tilauksen Luonti</h2>
+
+<div class="form-group">
+    <label for="exampleSelect1" class="form-label mt-4">Asiakas</label>
+    <select class="form-select" id="exampleSelect1">
+        @foreach (var i in Model.asiakkaat)
+        {
+            <option>@i.Nimi</option>
+        }
+    </select>
+</div>

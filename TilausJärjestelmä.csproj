@@ -129,6 +129,7 @@
     <Compile Include="Controllers\AsiakkaatsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PostitoimipaikatsController.cs" />
+    <Compile Include="Controllers\TilausHallintaController.cs" />
     <Compile Include="Controllers\TuotteetsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -139,6 +140,8 @@
     <Compile Include="Models\Henkilot.cs">
       <DependentUpon>TilausDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TilausLuontiVM.cs" />
+    <Compile Include="Models\TilausRiviVM.cs" />
     <Compile Include="Models\Postitoimipaikat.cs">
       <DependentUpon>TilausDb.tt</DependentUpon>
     </Compile>
@@ -166,6 +169,7 @@
     <Compile Include="Models\Tilausrivit.cs">
       <DependentUpon>TilausDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TilausViewModel.cs" />
     <Compile Include="Models\Tuotteet.cs">
       <DependentUpon>TilausDb.tt</DependentUpon>
     </Compile>
@@ -256,9 +260,13 @@
     <Content Include="Views\Postitoimipaikats\Details.cshtml" />
     <Content Include="Views\Postitoimipaikats\Edit.cshtml" />
     <Content Include="Views\Postitoimipaikats\Index.cshtml" />
+    <Content Include="Views\TilausHallinta\Index.cshtml" />
+    <Content Include="Views\TilausHallinta\Tilausrivit.cshtml" />
+    <Content Include="Views\TilausHallinta\TilauksenLuonti.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Default\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
