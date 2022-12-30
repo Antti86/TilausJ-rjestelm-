@@ -140,6 +140,7 @@
     <Compile Include="Models\Henkilot.cs">
       <DependentUpon>TilausDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TilausRiviCache.cs" />
     <Compile Include="Models\TilausLuontiVM.cs" />
     <Compile Include="Models\TilausRiviVM.cs" />
     <Compile Include="Models\Postitoimipaikat.cs">

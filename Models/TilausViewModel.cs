@@ -7,15 +7,16 @@ namespace TilausJärjestelmä.Models
 {
     using System;
     using System.Collections.Generic;
-    public partial class TilausViewModel
+    public partial class TilausViewModel //ViewModel tilauksille
     {
-        public TilausViewModel(string Asiakas_in, decimal Hinta_in, string Toimitusosoite_in, string Postinumero_in, DateTime Tilauspvm_in,
-            DateTime Toimituspvm_in, int TilausID_in)
+        public TilausViewModel(string Asiakas_in, decimal Hinta_in, string Toimitusosoite_in, string Postinumero_in,
+            string postitoimipaikka_in, DateTime Tilauspvm_in, DateTime Toimituspvm_in, int TilausID_in)
         {
             Asiakas = Asiakas_in;
             Hinta = Hinta_in;
             Toimitusosoite = Toimitusosoite_in;
             Postinumero = Postinumero_in;
+            Postitoimipaikka = postitoimipaikka_in;
             Tilauspvm = Tilauspvm_in;
             Toimituspvm = Toimituspvm_in;
             TilausID = TilausID_in;
@@ -38,7 +39,7 @@ namespace TilausJärjestelmä.Models
                                  select tr;
                 decimal sum = (decimal)tilausrivi.Sum(Ah => Ah.Ahinta);
 
-                p.Add(new TilausViewModel(asiakas.First().Nimi, sum, i.Toimitusosoite, i.Postinumero,
+                p.Add(new TilausViewModel(asiakas.First().Nimi, sum, i.Toimitusosoite, i.Postinumero, i.Postitoimipaikat.Postitoimipaikka,
                     (DateTime)i.Tilauspvm, (DateTime)i.Toimituspvm, i.TilausID));
             }
             db.Dispose();
@@ -52,6 +53,7 @@ namespace TilausJärjestelmä.Models
         public string Toimitusosoite { get; set; }
         public string Postinumero { get; set; }
 
+        public string Postitoimipaikka { get; set; }
         public Nullable<System.DateTime> Tilauspvm { get; set; }
         public Nullable<System.DateTime> Toimituspvm { get; set; }
 

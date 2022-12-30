@@ -1,18 +1,190 @@
 ﻿
 @model TilausJärjestelmä.Models.TilausLuontiVM
 
-@{
-    ViewBag.Title = "TilauksenLuonti";
-}
-
 <h2>Tilauksen Luonti</h2>
 
-<div class="form-group">
-    <label for="exampleSelect1" class="form-label mt-4">Asiakas</label>
-    <select class="form-select" id="exampleSelect1">
-        @foreach (var i in Model.asiakkaat)
+@*------------RIVI 1---------------*@
+<div class="row">
+    <div class="col-2">
+        @using (Html.BeginForm("AsiakaValinta", "TilausHallinta", Model, FormMethod.Post))
         {
-            <option>@i.Nimi</option>
+            <label class="form-label mt-4">Asiakas</label>
+            @Html.DropDownListFor(x => x.selectedAsiakas, new SelectList(Model.asiakkaat.Select(s => s.Nimi)),
+           "Valitse asiakas", new { @class = "form-select", onchange = "this.form.submit()" })
         }
-    </select>
+    </div>
+
+    <div class="col-2">
+        <fieldset disabled="">
+            <label class="form-label mt-4" for="disabledInput0">Asiakas.nmr</label>
+            <input class="form-control" id="disabledInput0" type="text" value="@ViewBag.AsiakasId" placeholder="" disabled="">
+        </fieldset>
+    </div>
+
+    <div class="col-2">
+        @using (Html.BeginForm("TuoteValinta", "TilausHallinta", Model, FormMethod.Post))
+        {
+            <label class="form-label mt-4">Tuote</label>
+            @Html.DropDownListFor(x => x.selectedTuote, new SelectList(Model.tuotteet.Select(s => s.Nimi)),
+           "Valitse Tuote", new { @class = "form-select", onchange = "this.form.submit()" })
+        }
+    </div>
+
+    <div class="col-1">
+        <fieldset disabled="">
+            <label class="form-label mt-4" for="disabledInput001">Tuote.nmr</label>
+            <input class="form-control" id="disabledInput001" type="text" value="@ViewBag.Tuotenmr" placeholder="" disabled="">
+        </fieldset>
+    </div>
+
+    <div class="col-1">
+        <fieldset disabled="">
+            <label class="form-label mt-4" for="disabledInput002">Hinta</label>
+            <input class="form-control" id="disabledInput002" type="text" value="@Model.hinta" placeholder="" disabled="">
+        </fieldset>
+    </div>
+
+    <div class="col-1">
+        <fieldset disabled="">
+            <label class="form-label mt-4" for="disabledInput003">Summa</label>
+            <input class="form-control" id="disabledInput003" type="text" value="@ViewBag.Summa" placeholder="" disabled="">
+        </fieldset>
+    </div>
+
+</div>
+
+@*------------RIVI 2---------------*@
+<div class="row">
+    <div class="col-2">
+        <fieldset disabled="">
+            <label class="form-label mt-4" for="disabledInput1">Toimitus osoite</label>
+            <input class="form-control" id="disabledInput1" type="text" value="@ViewBag.Toimitusosoite" placeholder="" disabled="">
+        </fieldset>
+    </div>
+
+    <div class="col-2">
+        <fieldset disabled="">
+            <label class="form-label mt-4" for="disabledInput2">Tilaus.nmr</label>
+            <input class="form-control" id="disabledInput2" type="text" value="@ViewBag.Tilausnumero" placeholder="" disabled="">
+        </fieldset>
+    </div>
+
+    <div class="col-2">
+        <label class="form-label mt-4" for="maara0">Määrä</label>
+        <form class="d-flex">
+            <a class="btn btn-light col-3" @Html.ActionLink("-", "Minus", Model)
+            <input class="form-control " id="maara0" type="text" value="@Model.maara" />
+            <a class="btn btn-light col-3" @Html.ActionLink("+", "Plus", Model)
+        </form>
+
+    </div>
+
+    <div class="col-2" style="margin: 56px 0px 0px 0px">
+        <a class="btn btn-light col-7" @Html.ActionLink("Lisää Rivi", "LisaaRivi", Model)
+    </div>
+
+    <div class="col-2" style="margin: 56px 0px 0px 0px">
+        @*-----------Tähän rivin poisto nappi----------*@
+    </div>
+
+</div>
+
+@*------------RIVI 3---------------*@
+
+<div class="row" style="height: 100px">
+    <div class="col-2">
+        <fieldset disabled="">
+            <label class="form-label mt-4" for="disabledInput3">Postitoimipaikka</label>
+            <input class="form-control" id="disabledInput3" type="text" value="@ViewBag.Postitoimipaikka" placeholder="" disabled="">
+        </fieldset>
+    </div>
+    <div class="col-2">
+        <fieldset disabled="">
+            <label class="form-label mt-4" for="disabledInput4">Postinumero</label>
+            <input class="form-control" id="disabledInput4" type="text" value="@ViewBag.Postinumero" placeholder="" disabled="">
+        </fieldset>
+    </div>
+    <div class="col-8">
+        <label class="form-label mt-4" for="disabledInput03">Tilausrivit</label>
+        <table class="table">
+            <tr>
+                <th>
+                    Tuote
+                </th>
+                <th>
+                    Määrä
+                </th>
+                <th>
+                    Ahinta
+                </th>
+                <th>
+                    TilausriviID
+                </th>
+
+            </tr>
+            @foreach (var item in Model.aktiivisetRivit)
+            {
+                <tr class="col-1">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tuote)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.maara)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ahinta)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TilausriviID)
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+    </div>
+
+</div>
+
+
+@*------------RIVI 4---------------*@
+<div class="row">
+    <div class="col-2">
+        <fieldset disabled="">
+            <label class="form-label mt-4" for="disabledInput5">Tilaus.Pvm</label>
+            <input class="form-control" id="disabledInput5" type="text" value="@ViewBag.TilausPvm" placeholder="" disabled="">
+        </fieldset>
+    </div>
+    <div class="col-2">
+        <fieldset disabled="">
+            <label class="form-label mt-4" for="disabledInput5">Toimitus.Pvm</label>
+            <input class="form-control" id="disabledInput5" type="text" value="@ViewBag.ToimitusPvm" placeholder="" disabled="">
+        </fieldset>
+    </div>
+</div>
+
+@*------------RIVI 5---------------*@
+<div class="row">
+    <div class="col-2">
+        <fieldset disabled="">
+            <label class="form-label mt-4" for="disabledInput5">Toimitus aika</label>
+            <input class="form-control" id="disabledInput5" type="text" value="?????" placeholder="" disabled="">
+        </fieldset>
+    </div>
+    <div class="col-2">
+        <fieldset disabled="">
+            <label class="form-label mt-4" for="disabledInput5">Kokonais summa</label>
+            <input class="form-control" id="disabledInput5" type="text" value="???????" placeholder="" disabled="">
+        </fieldset>
+    </div>
+</div>
+
+@*------------RIVI 6---------------*@
+<div class="row">
+    <div class="col-2">
+        @*--------Tähän tyhjennys nappi------*@
+    </div>
+    <div class="col-2">
+        @*--------Tähän tilauksen luonti nappi------*@
+    </div>
 </div>

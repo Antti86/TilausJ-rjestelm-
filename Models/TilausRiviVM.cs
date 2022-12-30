@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+
 namespace TilausJärjestelmä.Models
 {
-    public class TilausRiviVM
+    public class TilausRiviVM //ViewModel luokka tilausriveille
     {
         public TilausRiviVM(string Tuote_in, int maara_in, decimal Ahinta_in, int TilausriviID_in)
         {
