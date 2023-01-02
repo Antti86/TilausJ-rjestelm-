@@ -7,9 +7,11 @@ namespace TilausJärjestelmä.Models
 {
     using System;
     using System.Collections.Generic;
-    public partial class TilausViewModel //ViewModel tilauksille
+    using TilausJärjestelmä.Models.TilausModel;
+
+    public class TilausViewModel : TilausViewModelBase //ViewModel esittämiseen
     {
-        public TilausViewModel(string Asiakas_in, decimal Hinta_in, string Toimitusosoite_in, string Postinumero_in,
+        private TilausViewModel(string Asiakas_in, decimal Hinta_in, string Toimitusosoite_in, string Postinumero_in,
             string postitoimipaikka_in, DateTime Tilauspvm_in, DateTime Toimituspvm_in, int TilausID_in)
         {
             Asiakas = Asiakas_in;
@@ -46,17 +48,6 @@ namespace TilausJärjestelmä.Models
             return p;
         }
 
-        public string Asiakas { get; set; }
 
-        public decimal Hinta { get; set; }
-
-        public string Toimitusosoite { get; set; }
-        public string Postinumero { get; set; }
-
-        public string Postitoimipaikka { get; set; }
-        public Nullable<System.DateTime> Tilauspvm { get; set; }
-        public Nullable<System.DateTime> Toimituspvm { get; set; }
-
-        public int TilausID { get; set; }
     }
 }

@@ -33,15 +33,7 @@ namespace TilausJärjestelmä.Controllers
             //Huom. Asiakashaku toiminto ei toimi kunnolla jos on useampi saman niminen asiakas
             //Etsintä tehdään nimellä eikä asiakas_id:llä!! Sama myös Tuotehaulla!!
 
-            model.asiakkaat = from a in db.Asiakkaat
-                              select a;
-            model.asiakkaat = model.asiakkaat.OrderBy(t => t.Nimi);
-
-            model.tuotteet = from t in db.Tuotteet
-                             select t;
-
-            model.postitoimipaikat = from p in db.Postitoimipaikat
-                                     select p;
+            TilausLuontiVM.HaeAsiakkaatJaTuotteet(model, db);
 
             //Muutetaangeneric listaks, jotta saadaan find metohdi käyttöön
             List<Asiakkaat> asiakaslista = model.asiakkaat.ToList();
@@ -51,40 +43,64 @@ namespace TilausJärjestelmä.Controllers
             Tuotteet tuote = tuotelista.Find(a => a.Nimi == model.selectedTuote);
             Asiakkaat asia = asiakaslista.Find(a => a.Nimi == model.selectedAsiakas);
 
-            //Tilaus viewbagit... Muuta viewbagit modelin ominaisuuksi
+            //Asiakas Tiedot!
             //Jos on valittu asiakas client puolelta niin haetaan oikeat tiedot
             if (asia != null)
             {
-                ViewBag.AsiakasId = asia.AsiakasID.ToString();
-                ViewBag.Toimitusosoite = asia.Osoite.ToString();
-                ViewBag.Tilausnumero = TilausLuontiVM.HaeTilausnumero(db).ToString();
-                ViewBag.Postitoimipaikka = asia.Postitoimipaikat.Postitoimipaikka.ToString();
-                ViewBag.Postinumero = asia.Postinumero.ToString();
+                model.AsiakasID = asia.AsiakasID;
+                model.Toimitusosoite = asia.Osoite.ToString();
+                model.TilausID = TilausLuontiVM.HaeTilausnumero(db);
+                model.Postitoimipaikka = asia.Postitoimipaikat.Postitoimipaikka.ToString();
+                model.Postinumero = asia.Postinumero.ToString();
+
+                //Liitä kalenteri ominaisuus jossain vaiheessa?
                 DateTime time = DateTime.Now;
-                ViewBag.TilausPvm = time;
-                ViewBag.ToimitusPvm = time.AddDays(3);
+                model.Tilauspvm = time;
+                model.Toimituspvm = time.AddDays(3);
+                model.ToimitusAika = model.Toimituspvm.Value.Day - model.Tilauspvm.Value.Day;
+            }
+            else
+            {
+                model.TyhjennäAsiakasTiedot();
             }
 
 
-            //Tilausrivi viewbagit.. Muuta viewbagit modelin ominaisuuksi
+            //Tuote ja Tilausrivi tiedot
             //Jos on valittu tuote client puolelta niin haetaan oikeat tiedot
             if (tuote != null)
             {
-                ViewBag.Tuotenmr = tuote.TuoteID.ToString();
-                model.hinta = (decimal)tuote.Ahinta;
-                var summa = tuote.Ahinta * model.maara;
-                ViewBag.Summa = summa.ToString();
+                model.Tuotenmr = tuote.TuoteID;
+                model.Hinta = tuote.Ahinta;
+                decimal? summa = model.Hinta * model.maara;
+                model.Rivisumma = summa;
+            }
+            else
+            {
+                model.TyhjennäTuoteTeidot();
             }
             //Luodaan Cache objekti, tällä pidetään kirjaa lisätyistä tilausriveistä
-            var listCache = new Cacher(); 
-            if (model.uusirivi == true && model.maara > 0 && tuote != null && asia != null)
+            Cacher listCache = new Cacher(); 
+            if (model.uusirivi && model.maara > 0 && tuote != null && asia != null)
             {
-                listCache.CacheLista.Add(new TilausRiviVM(model.selectedTuote, model.maara, model.hinta, TilausLuontiVM.HaeTilausRivi(db)));
-                
+                int riviId = TilausLuontiVM.HaeTilausRivi(db) + listCache.CacheLista.Count();
+                listCache.CacheLista.Add(new TilausRiviVM(model.selectedTuote, model.maara, model.Rivisumma, riviId, model.Tuotenmr));
+                model.uusirivi = false;
+            }
+            if (model.rivinpoisto)
+            {
+                listCache.PoistaViimeinenRivi();
+                model.rivinpoisto = false;
+            }
+            if (model.tyhjennäKaikkiRivit)
+            {
+                listCache.TyhjennäLista();
+                model.tyhjennäKaikkiRivit = false;
             }
             //Liitetään aktiiviset rivit listaan web memory cachen tiedot
             model.aktiivisetRivit = listCache.CacheLista;
-            model.uusirivi = false;
+
+
+            model.KokonaisSumma = model.aktiivisetRivit.Sum(x => x.Ahinta);
 
             return View(model);
         }
@@ -109,6 +125,18 @@ namespace TilausJärjestelmä.Controllers
             return RedirectToAction("TilauksenLuonti", model);
         }
 
+        public ActionResult PoistaRivi(TilausLuontiVM model) //Hoitaa poistarivi buttonin toiminnon
+        {
+            model.rivinpoisto = true;
+            return RedirectToAction("TilauksenLuonti", model);
+        }
+
+        public ActionResult TyhjennäRivit(TilausLuontiVM model) //Hoitaa tyhjennä rivit buttonin toiminnon
+        {
+            model.tyhjennäKaikkiRivit = true;
+            return RedirectToAction("TilauksenLuonti", model);
+        }
+
         [HttpPost]
         public ActionResult AsiakaValinta(TilausLuontiVM model) //Kiertää tätä kautta asiakkaan dropdowboxin valinnan yhteydessä
         {
@@ -120,6 +148,49 @@ namespace TilausJärjestelmä.Controllers
         {
             return RedirectToAction("TilauksenLuonti", model);
         }
+
+        public ActionResult TallennaTilaus(TilausLuontiVM model)
+        {
+            Tilaukset uusitilaus = new Tilaukset()
+            {
+                TilausID = (int)model.TilausID,
+                AsiakasID = model.AsiakasID,
+                Toimitusosoite = model.Toimitusosoite,
+                Postinumero = model.Postinumero,
+                Tilauspvm = model.Tilauspvm,
+                Toimituspvm = model.Toimituspvm
+            };
+            db.Tilaukset.Add(uusitilaus);
+
+            Cacher listCache = new Cacher();
+
+            foreach (var i in listCache.CacheLista)
+            {
+                Tilausrivit rivi = new Tilausrivit()
+                {
+                    TilausriviID = (int)i.TilausriviID,
+                    TilausID = model.TilausID,
+                    TuoteID = i.TuoteID,
+                    Maara = i.maara,
+                    Ahinta = i.Ahinta
+                };
+                db.Tilausrivit.Add(rivi);
+            }
+
+            db.SaveChanges();
+            listCache.TyhjennäLista();
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult TyhjennäTiedot(TilausLuontiVM model)
+        {
+            Cacher listCache = new Cacher();
+            listCache.TyhjennäLista();
+            model.selectedAsiakas = null;
+            model.selectedTuote = null;
+            return RedirectToAction("TilauksenLuonti", model);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

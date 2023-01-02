@@ -140,9 +140,10 @@
     <Compile Include="Models\Henkilot.cs">
       <DependentUpon>TilausDb.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TilausRiviCache.cs" />
-    <Compile Include="Models\TilausLuontiVM.cs" />
-    <Compile Include="Models\TilausRiviVM.cs" />
+    <Compile Include="Models\TilausModel\TilausViewModelBase.cs" />
+    <Compile Include="Models\TilausRiviModel\TilausRiviCache.cs" />
+    <Compile Include="Models\TilausModel\TilausLuontiVM.cs" />
+    <Compile Include="Models\TilausRiviModel\TilausRiviVM.cs" />
     <Compile Include="Models\Postitoimipaikat.cs">
       <DependentUpon>TilausDb.tt</DependentUpon>
     </Compile>
@@ -170,7 +171,7 @@
     <Compile Include="Models\Tilausrivit.cs">
       <DependentUpon>TilausDb.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TilausViewModel.cs" />
+    <Compile Include="Models\TilausModel\TilausViewModel.cs" />
     <Compile Include="Models\Tuotteet.cs">
       <DependentUpon>TilausDb.tt</DependentUpon>
     </Compile>

@@ -30,7 +30,15 @@ namespace TilausJärjestelmä.Models
             }
         }
 
-        public void ClearList() //Tyhjentää koko listan
+        public void PoistaViimeinenRivi()
+        {
+            if (CacheLista.Count > 0)
+            {
+                CacheLista.RemoveAt(CacheLista.Count - 1);
+            }
+        }
+
+        public void TyhjennäLista() //Tyhjentää koko listan
         {
             HttpContext.Current.Cache.Remove("List");
         }
