@@ -75,6 +75,18 @@ namespace TilausJärjestelmä.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (asiakkaat.Nimi == null || asiakkaat.Nimi == "")
+                {
+                    ModelState.AddModelError("Nimi", "Nimi ei voi olla tyhjä!");
+                    ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postitoimipaikka", asiakkaat.Postinumero);
+                    return View(asiakkaat);
+                }
+                if (asiakkaat.Osoite == null || asiakkaat.Osoite == "")
+                {
+                    ModelState.AddModelError("Osoite", "Osoite ei voi olla tyhjä!");
+                    ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postitoimipaikka", asiakkaat.Postinumero);
+                    return View(asiakkaat);
+                }
                 db.Asiakkaat.Add(asiakkaat);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -109,6 +121,18 @@ namespace TilausJärjestelmä.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (asiakkaat.Nimi == null || asiakkaat.Nimi == "")
+                {
+                    ModelState.AddModelError("Nimi", "Nimi ei voi olla tyhjä!");
+                    ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postitoimipaikka", asiakkaat.Postinumero);
+                    return View(asiakkaat);
+                }
+                if (asiakkaat.Osoite == null || asiakkaat.Osoite == "")
+                {
+                    ModelState.AddModelError("Osoite", "Osoite ei voi olla tyhjä!");
+                    ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postitoimipaikka", asiakkaat.Postinumero);
+                    return View(asiakkaat);
+                }
                 db.Entry(asiakkaat).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

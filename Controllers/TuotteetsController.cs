@@ -90,6 +90,11 @@ namespace TilausJärjestelmä.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (tuotteet.Nimi == null || tuotteet.Nimi == "")
+                {
+                    ModelState.AddModelError("Nimi", "Nimi ei voi olla tyhjä!");
+                    return View(tuotteet);
+                }
                 db.Tuotteet.Add(tuotteet);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -122,6 +127,11 @@ namespace TilausJärjestelmä.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (tuotteet.Nimi == null || tuotteet.Nimi == "")
+                {
+                    ModelState.AddModelError("Nimi", "Nimi ei voi olla tyhjä!");
+                    return View(tuotteet);
+                }
                 db.Entry(tuotteet).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
