@@ -8,7 +8,6 @@
 
 <div class="d-flex">
     <h2>Tilaukset</h2>
-    @*<button class="btn btn-secondary my-2 my-sm-0" type="button"  style="margin-left: 80% ">Luo Uusi Tilaus</button>*@
     <a class="btn btn-secondary my-2 my-sm-2" href="~/TilausHallinta/TilauksenLuonti" style="margin-left: 80%">Luo Uusi Tilaus</a>
 </div>
 <br />
@@ -70,11 +69,11 @@
                 @Html.DisplayFor(modelItem => item.TilausID)
             </td>
             <td>
-                @Html.ActionLink("Tilausrivit", "Tilausrivit", new { id = item.TilausID }) |  @* tarkista nämä vielä *@
+                @Html.ActionLink("Tilausrivit", "Tilausrivit", new { id = item.TilausID }) |
 
-                @Html.ActionLink("Edit", "Edit", new { id = item.TilausID }) |
+                @Html.ActionLink("Muuta", "Edit", new { id = item.TilausID }) |
 
-                @Html.ActionLink("Delete", "Delete", new { id = item.TilausID })
+                @Html.ActionLink("Poista", "Delete", new { id = item.TilausID })
             </td>
         </tr>
     }
