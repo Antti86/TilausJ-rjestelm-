@@ -254,12 +254,10 @@
     <Content Include="Views\Tuotteets\Index.cshtml" />
     <Content Include="Views\Asiakkaats\Create.cshtml" />
     <Content Include="Views\Asiakkaats\Delete.cshtml" />
-    <Content Include="Views\Asiakkaats\Details.cshtml" />
     <Content Include="Views\Asiakkaats\Edit.cshtml" />
     <Content Include="Views\Asiakkaats\Index.cshtml" />
     <Content Include="Views\Postitoimipaikats\Create.cshtml" />
     <Content Include="Views\Postitoimipaikats\Delete.cshtml" />
-    <Content Include="Views\Postitoimipaikats\Details.cshtml" />
     <Content Include="Views\Postitoimipaikats\Edit.cshtml" />
     <Content Include="Views\Postitoimipaikats\Index.cshtml" />
     <Content Include="Views\TilausHallinta\Index.cshtml" />

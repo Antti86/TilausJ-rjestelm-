@@ -59,21 +59,6 @@ namespace TilausJärjestelmä.Controllers
             return View(asiakkaat.ToList());
         }
 
-        // GET: Asiakkaats/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Asiakkaat asiakkaat = db.Asiakkaat.Find(id);
-            if (asiakkaat == null)
-            {
-                return HttpNotFound();
-            }
-            return View(asiakkaat);
-        }
-
         // GET: Asiakkaats/Create
         public ActionResult Create()
         {

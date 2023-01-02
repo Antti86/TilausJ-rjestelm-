@@ -65,21 +65,6 @@ namespace TilausJärjestelmä.Controllers
             return View(postipaikat);
         }
 
-        // GET: Postitoimipaikats/Details/5
-        public ActionResult Details(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Postitoimipaikat postitoimipaikat = db.Postitoimipaikat.Find(id);
-            if (postitoimipaikat == null)
-            {
-                return HttpNotFound();
-            }
-            return View(postitoimipaikat);
-        }
-
         // GET: Postitoimipaikats/Create
         public ActionResult Create()
         {

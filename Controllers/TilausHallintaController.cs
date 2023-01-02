@@ -28,6 +28,8 @@ namespace TilausJärjestelmä.Controllers
         {
             return View(TilausRiviVM.GetViewModelList(id));
         }
+
+
         public ActionResult TilauksenLuonti(TilausLuontiVM model)
         {
             //Huom. Asiakashaku toiminto ei toimi kunnolla jos on useampi saman niminen asiakas

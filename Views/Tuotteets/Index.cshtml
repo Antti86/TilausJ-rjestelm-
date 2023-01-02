@@ -8,8 +8,8 @@
         <label style="font-size: 150%">Etsi Tuote</label>
 
         <form class="d-flex">
-            
-            <input class="form-control me-sm-2" type="text" name="SearchString" value=@ViewBag.Search >
+
+            <input class="form-control me-sm-2" type="text" name="SearchString" value=@ViewBag.Search>
             <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
         </form>
     </div>
@@ -19,23 +19,19 @@
         <label style="font-size: 150%">Järjestele</label>
         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">@ViewBag.Sort</a>
         <div class="dropdown-menu">
-            <a class="dropdown-item" @Html.ActionLink("A-Ö", "Index",
-                                    new { sortOrder = "A-Ö", searchString = ViewBag.Search, Page = ViewBag.CurrentPage }) </a>
+            <a class="dropdown-item" @Html.ActionLink("A-Ö", "Index", new { sortOrder = "A-Ö", searchString = ViewBag.Search, Page = ViewBag.CurrentPage }) </a>
 
-            <a class="dropdown-item" @Html.ActionLink("Ö-A", "Index",
-                                    new { sortOrder = "Ö-A", searchString = ViewBag.Search, Page = ViewBag.CurrentPage }) </a>
+            <a class="dropdown-item" @Html.ActionLink("Ö-A", "Index", new { sortOrder = "Ö-A", searchString = ViewBag.Search, Page = ViewBag.CurrentPage }) </a>
 
-            <a class="dropdown-item" @Html.ActionLink("Kallein ensin", "Index",
-                                    new { sortOrder = "Kallein ensin", searchString = ViewBag.Search, Page = ViewBag.CurrentPage })</a>
+            <a class="dropdown-item" @Html.ActionLink("Kallein ensin", "Index", new { sortOrder = "Kallein ensin", searchString = ViewBag.Search, Page = ViewBag.CurrentPage })</a>
 
-            <a class="dropdown-item" @Html.ActionLink("Halvin ensin", "Index",
-                                    new { sortOrder = "Halvin ensin", searchString = ViewBag.Search, Page = ViewBag.CurrentPage })</a>
+            <a class="dropdown-item" @Html.ActionLink("Halvin ensin", "Index", new { sortOrder = "Halvin ensin", searchString = ViewBag.Search, Page = ViewBag.CurrentPage })</a>
             <div class="dropdown-divider"></div>
         </div>
     </div>
 
-    <h3 style="margin-left: 30%">
-        @Html.ActionLink("Create New", "Create")
+    <h3 style="margin-left: 30%; margin-top: 30px">
+        <a class="btn btn-secondary col-12" @Html.ActionLink("Uusi Tuote", "Create")
     </h3>
 
 </div>
@@ -68,9 +64,9 @@
                 @Html.DisplayFor(modelItem => item.Kuva)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.TuoteID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.TuoteID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.TuoteID })
+                @Html.ActionLink("Muuta", "Edit", new { id = item.TuoteID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.TuoteID }) | @*Jätetään toistaseksi jos liitetään joskus lisää tietoa*@
+                @Html.ActionLink("Poista", "Delete", new { id = item.TuoteID })
             </td>
         </tr>
     }
