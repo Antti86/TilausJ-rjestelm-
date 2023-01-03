@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using TilausJärjestelmä.Models.TilausModel;
@@ -87,6 +88,8 @@ namespace TilausJärjestelmä.Models
                              select t;
             model.tuotteet = model.tuotteet.OrderBy(t => t.Nimi);
         }
+
+        public bool error { get; set; } = false;
 
     }
 }
