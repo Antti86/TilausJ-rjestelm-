@@ -1,0 +1,88 @@
+﻿@model TilausJärjestelmä.Models.TilausViewModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Poista Tilaus</h2>
+
+<h3>Haluatko varmasti poistaa tämän tilauksen?</h3>
+<div>
+    <hr />
+    <dl class="d-lg-table-cell" style="width: 60%">
+        <dt>
+            @Html.DisplayNameFor(model => model.Asiakas)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Asiakas)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hinta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hinta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Toimitusosoite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Toimitusosoite)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Postinumero)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Postinumero)
+        </dd>
+    </dl>
+    <dl class="d-lg-table-cell">
+        <dt>
+            @Html.DisplayNameFor(model => model.Postitoimipaikka)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Postitoimipaikka)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tilauspvm)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tilauspvm)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Toimituspvm)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Toimituspvm)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TilausID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TilausID)
+        </dd>
+
+    </dl>
+    <br />
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Poista" name="Delete" class="btn btn-primary col-1" />
+            <a class="btn btn-secondary col-1" href="~/TilausHallinta/Index">Takaisin</a>
+        </div>
+    }
+</div>

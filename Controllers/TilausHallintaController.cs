@@ -29,8 +29,41 @@ namespace TilausJärjestelmä.Controllers
             return View(TilausRiviVM.GetViewModelList(id));
         }
 
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var tilaukset = TilausViewModel.GetViewModelList();
+            var t = tilaukset.Find(x => x.TilausID== id);
+            if (t == null)
+            {
+                return HttpNotFound();
+            }
+            return View(t);
+        }
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            //Haetaan ensin kaikki tilausrivit mitkä on poistettavan tilauksen alla
+            var tilausrivit = from i in db.Tilausrivit
+                              where i.TilausID == id
+                              select i;
+            //Poistetaan ensin kaikki rivit ennen kun voidaan poistaa tilaus
+            foreach (var i in tilausrivit)
+            {
+                db.Tilausrivit.Remove(i);
+            }
+            //Haetaan tilaus ja poistetaan se
+            Tilaukset tilaus = db.Tilaukset.Find(id);
+            db.Tilaukset.Remove(tilaus);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
-        public ActionResult TilauksenLuonti(TilausLuontiVM model)
+        public ActionResult TilauksenLuonti(TilausLuontiVM model)   //Tilauksen luonti sivulla kaikki data liikkuu tämän kautta
         {
             //Huom. Asiakashaku toiminto ei toimi kunnolla jos on useampi saman niminen asiakas
             //Etsintä tehdään nimellä eikä asiakas_id:llä!! Sama myös Tuotehaulla!!

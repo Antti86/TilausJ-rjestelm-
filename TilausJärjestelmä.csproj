@@ -263,6 +263,7 @@
     <Content Include="Views\TilausHallinta\Index.cshtml" />
     <Content Include="Views\TilausHallinta\Tilausrivit.cshtml" />
     <Content Include="Views\TilausHallinta\TilauksenLuonti.cshtml" />
+    <Content Include="Views\TilausHallinta\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
