@@ -41,6 +41,8 @@ namespace TilausJärjestelmä.Controllers
             {
                 return HttpNotFound();
             }
+            var rivit = TilausRiviVM.GetViewModelList((int)id);
+            ViewData["Rivit"] = rivit;
             return View(t);
         }
         [HttpPost, ActionName("Delete")]
@@ -137,6 +139,13 @@ namespace TilausJärjestelmä.Controllers
 
             model.KokonaisSumma = model.aktiivisetRivit.Sum(x => x.Ahinta);
 
+            //Katsotaan onko action linjastosta tullut error flag
+            if (model.error)
+            {
+                ModelState.AddModelError("Error", "Tilauksen tallentaminen ei onnistunut, ei tarpeeksi tietoja");
+                model.error = false;
+            }
+
             return View(model);
         }
 
@@ -186,6 +195,12 @@ namespace TilausJärjestelmä.Controllers
 
         public ActionResult TallennaTilaus(TilausLuontiVM model)
         {
+            Cacher listCache = new Cacher();
+            if (String.IsNullOrEmpty(model.selectedAsiakas) || String.IsNullOrEmpty(model.selectedTuote) || listCache.CacheLista.Count() == 0)
+            {
+                model.error = true;
+                return RedirectToAction("TilauksenLuonti", model);
+            }
             Tilaukset uusitilaus = new Tilaukset()
             {
                 TilausID = (int)model.TilausID,
@@ -195,9 +210,8 @@ namespace TilausJärjestelmä.Controllers
                 Tilauspvm = model.Tilauspvm,
                 Toimituspvm = model.Toimituspvm
             };
-            db.Tilaukset.Add(uusitilaus);
 
-            Cacher listCache = new Cacher();
+            db.Tilaukset.Add(uusitilaus);
 
             foreach (var i in listCache.CacheLista)
             {
@@ -211,7 +225,6 @@ namespace TilausJärjestelmä.Controllers
                 };
                 db.Tilausrivit.Add(rivi);
             }
-
             db.SaveChanges();
             listCache.TyhjennäLista();
             return RedirectToAction("Index");
