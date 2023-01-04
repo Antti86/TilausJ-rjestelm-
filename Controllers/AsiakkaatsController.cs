@@ -11,9 +11,10 @@ using TilausJärjestelmä.Models;
 
 namespace TilausJärjestelmä.Controllers
 {
-    public class AsiakkaatsController : Controller
+    [LoginActionFilter]
+    public class AsiakkaatsController : BaseController
     {
-        private TilausDBEntities db = new TilausDBEntities();
+
 
         // GET: Asiakkaats
         public ActionResult Index(string sortOrder, string searchString, int page = 1)

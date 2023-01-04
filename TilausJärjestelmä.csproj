@@ -127,6 +127,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AsiakkaatsController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PostitoimipaikatsController.cs" />
     <Compile Include="Controllers\TilausHallintaController.cs" />
@@ -140,10 +141,10 @@
     <Compile Include="Models\Henkilot.cs">
       <DependentUpon>TilausDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\LoginActionFilter.cs" />
     <Compile Include="Models\Logins.cs">
       <DependentUpon>TilausDb.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\TilausModel\TilausViewModelBase.cs" />
     <Compile Include="Models\TilausRiviModel\TilausRiviCache.cs" />
     <Compile Include="Models\TilausModel\TilausLuontiVM.cs" />
@@ -266,10 +267,10 @@
     <Content Include="Views\TilausHallinta\Tilausrivit.cshtml" />
     <Content Include="Views\TilausHallinta\TilauksenLuonti.cshtml" />
     <Content Include="Views\TilausHallinta\Delete.cshtml" />
-    <Content Include="Views\Home\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Base\" />
     <Folder Include="Views\Default\" />
   </ItemGroup>
   <ItemGroup>

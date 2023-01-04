@@ -11,9 +11,10 @@ using TilausJärjestelmä.Models;
 
 namespace TilausJärjestelmä.Controllers
 {
-    public class PostitoimipaikatsController : Controller
+    [LoginActionFilter]
+    public class PostitoimipaikatsController : BaseController
     {
-        private TilausDBEntities db = new TilausDBEntities();
+
         
         // GET: Postitoimipaikats
         public ActionResult Index(string sortOrder, string searchString, int page = 1)

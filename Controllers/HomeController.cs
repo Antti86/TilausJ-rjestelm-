@@ -8,12 +8,16 @@ using TilausJärjestelmä.Models;
 namespace TilausJärjestelmä.Controllers
 {
 
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
 
-        TilausDBEntities db = new TilausDBEntities();
+        
         public ActionResult Index()
         {
+            if (Session["UserName"] != null)
+            {
+                Session.Abandon();
+            }
             Session["LogStatus"] = "Kirjaudu sisään";
             return View();
         }
@@ -25,7 +29,8 @@ namespace TilausJärjestelmä.Controllers
             var LoggedUser = db.Logins.SingleOrDefault(x => x.UserName == model.UserName && x.PassWord == model.PassWord);
             if (LoggedUser != null)
             {
-                Session["LogStatus"] = "Kirjaudu ulos";
+                string statustext = "Kirjaudu ulos (" + model.UserName + ")";
+                Session["LogStatus"] = statustext;
                 Session["UserName"] = LoggedUser.UserName;
                 return RedirectToAction("Index", "TilausHallinta");
             }
@@ -33,7 +38,7 @@ namespace TilausJärjestelmä.Controllers
             {
                 Session["LogStatus"] = "Kirjaudu sisään";
                 model.LoginErrorMessage = "Tuntematon käyttäjätunnus tai salasana.";
-                return View("Login", model);
+                return View("Index", model);
             }
         }
         public ActionResult LogOut()
