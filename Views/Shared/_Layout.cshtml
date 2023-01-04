@@ -23,13 +23,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarColor01">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="~/Home/Index">
-                            Home
-                            <span class="visually-hidden">(current)</span>
-                        </a>
-                    </li>
+                <ul class="navbar-nav" style="width:93%">
                     <li class="nav-item">
                         <a class="nav-link" href="~/TilausHallinta/Index">Tilausten hallinta</a>
                     </li>
@@ -42,7 +36,13 @@
                     <li class="nav-item">
                         <a class="nav-link" href="~/Postitoimipaikats/Index">Postitoimipaikat</a>
                     </li>
+                    <li class="nav-item ms-auto">
+                        <a class="nav-link active" href="~/Home/Index">@Session["LogStatus"]
+                            
 
+                            @*<span class="visually-hidden">(current)</span>*@
+                        </a>
+                    </li>
                 </ul>
 
             </div>
