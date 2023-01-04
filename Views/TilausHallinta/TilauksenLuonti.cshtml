@@ -7,7 +7,7 @@
 <div class="d-flex justify-content-between" style="height: 40px">
     <h2 class="col-4">Tilauksen Luonti</h2>
     @Html.ValidationMessage("Error", new { @class = "text-danger" })
-    <a class="btn btn-primary col-1" href="~/TilausHallinta/Index">Takaisin</a>
+    <a class="btn btn-primary col-1" href="~/TilausHallinta/Takaisin">Takaisin</a>
 </div>
 
 
@@ -92,10 +92,6 @@
     </div>
 
     <div class="col-sm-2" style="margin: 56px 0px 0px 0px">
-        <a class="btn btn-secondary col-12" @Html.ActionLink("Poista Rivi", "PoistaRivi", Model)
-    </div>
-
-    <div class="col-sm-2" style="margin: 56px 0px 0px 0px">
         <a class="btn btn-secondary col-12" @Html.ActionLink("Tyhjennä Rivit", "TyhjennäRivit", Model)
     </div>
 
@@ -132,22 +128,26 @@
                 <th>
                     TilausriviID
                 </th>
-
+                <th> </th>
             </tr>
-            @foreach (var item in Model.aktiivisetRivit)
+            @for (int i = 0; i < Model.aktiivisetRivit.Count(); i++)
             {
                 <tr class="col-1">
                     <td>
-                        @Html.DisplayFor(modelItem => item.Tuote)
+                        @Model.aktiivisetRivit[i].Tuote
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.maara)
+                        @Model.aktiivisetRivit[i].maara
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Ahinta)
+                        @Model.aktiivisetRivit[i].Ahinta
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.TilausriviID)
+                        @Model.aktiivisetRivit[i].TilausriviID
+                    </td>
+                    <td>
+                        @{Model.PoistoIndexi = i; }
+                        <a class="btn btn-secondary col-12" @Html.ActionLink("Poista", "PoistaRivi", Model)
                     </td>
                 </tr>
             }

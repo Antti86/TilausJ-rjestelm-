@@ -125,7 +125,7 @@ namespace TilausJärjestelmä.Controllers
             }
             if (model.rivinpoisto)
             {
-                listCache.PoistaViimeinenRivi();
+                listCache.PoistaRivi((int)model.PoistoIndexi);
                 model.rivinpoisto = false;
             }
             if (model.tyhjennäKaikkiRivit)
@@ -237,6 +237,15 @@ namespace TilausJärjestelmä.Controllers
             model.selectedAsiakas = null;
             model.selectedTuote = null;
             return RedirectToAction("TilauksenLuonti", model);
+        }
+
+        public ActionResult Takaisin(TilausLuontiVM model)
+        {
+            Cacher listCache = new Cacher();
+            listCache.TyhjennäLista();
+            model.selectedAsiakas = null;
+            model.selectedTuote = null;
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

@@ -91,5 +91,6 @@ namespace TilausJärjestelmä.Models
 
         public bool error { get; set; } = false;
 
+        public int? PoistoIndexi { get; set; }
     }
 }

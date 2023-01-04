@@ -4,7 +4,11 @@
     ViewBag.Title = "Tilausrivit";
 }
 
-<h2>Tilausrivit</h2>
+<div class="d-flex justify-content-between">
+    <h3>Tilausrivit</h3>
+    <a class="btn btn-secondary col-1" @Html.ActionLink("Takaisin", "Index")
+</div>
+<br />
 
 <table class="table">
     <tr>
@@ -20,7 +24,6 @@
         <th>
             @Html.DisplayNameFor(model => model.TilausriviID)
         </th>
-        <th></th>
     </tr>
 
     @foreach (var item in Model)
@@ -38,16 +41,8 @@
             <td>
                 @Html.DisplayFor(modelItem => item.TilausriviID)
             </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.TilausriviID }) |  @*tarkista nämä*@
-                @Html.ActionLink("Details", "Details", new { id = item.TilausriviID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.TilausriviID })
-            </td>
+
         </tr>
     }
 
 </table>
-
-<p>
-    <a class="btn btn-secondary col-1" @Html.ActionLink("Takaisin", "Index") @*tee buttoniksi*@
-</p>
