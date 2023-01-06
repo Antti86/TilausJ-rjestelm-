@@ -78,12 +78,22 @@
     </div>
 
     <div class="col-2">
-        <label class="form-label mt-4" for="maara0">Määrä</label>
-        <form class="d-flex">
-            <a class="btn btn-light col-3" @Html.ActionLink("-", "Minus", Model)
-            <input class="form-control " id="maara0" type="text" value="@Model.maara" />
-            <a class="btn btn-light col-3" @Html.ActionLink("+", "Plus", Model)
-        </form>
+        <label class="form-label mt-4">Määrä</label>
+        <div class="d-flex">
+            <form class="d-flex col-3">
+                <a class="btn btn-light col-12" @Html.ActionLink("-", "Minus", Model)
+            </form>
+
+            @using (Html.BeginForm("MaaranMuutos", "TilausHallinta", Model, FormMethod.Post ,new {@class = "d-flex col-6"}))
+            {
+                <input class="form-control" type="text" name="maarax" value="@Model.maara" />
+            }
+
+            <form class="d-flex col-3">
+                <a class="btn btn-light col-12" @Html.ActionLink("+", "Plus", Model)
+            </form>
+        </div>
+
 
     </div>
 

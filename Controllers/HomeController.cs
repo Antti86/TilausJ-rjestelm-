@@ -29,7 +29,7 @@ namespace TilausJärjestelmä.Controllers
             var LoggedUser = db.Logins.SingleOrDefault(x => x.UserName == model.UserName && x.PassWord == model.PassWord);
             if (LoggedUser != null)
             {
-                string statustext = "Kirjaudu ulos (" + model.UserName + ")";
+                string statustext = "Kirjaudu ulos (" + LoggedUser.UserName + ")";
                 Session["LogStatus"] = statustext;
                 Session["UserName"] = LoggedUser.UserName;
                 return RedirectToAction("Index", "TilausHallinta");
@@ -40,12 +40,6 @@ namespace TilausJärjestelmä.Controllers
                 model.LoginErrorMessage = "Tuntematon käyttäjätunnus tai salasana.";
                 return View("Index", model);
             }
-        }
-        public ActionResult LogOut()
-        {
-            Session.Abandon();
-            Session["LogStatus"] = "Kirjaudu sisään";
-            return RedirectToAction("Index", "Home");
         }
 
         protected override void Dispose(bool disposing)

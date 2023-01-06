@@ -138,6 +138,7 @@
     <Compile Include="Models\Asiakkaat.cs">
       <DependentUpon>TilausDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Checker.cs" />
     <Compile Include="Models\Henkilot.cs">
       <DependentUpon>TilausDb.tt</DependentUpon>
     </Compile>

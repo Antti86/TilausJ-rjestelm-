@@ -163,7 +163,19 @@ namespace TilausJärjestelmä.Controllers
             }
             return RedirectToAction("TilauksenLuonti", model);
         }
-
+        [HttpPost]
+        public ActionResult MaaranMuutos(TilausLuontiVM model, string maarax) //Jos muutetaan käsin rivin tuotemäärää ni tän actionin kautta
+        {
+            if (Checker.IsNumeric(maarax))
+            {
+                model.maara = int.Parse(maarax);
+            }
+            else
+            {
+                model.maara = 0;
+            }
+            return RedirectToAction("TilauksenLuonti", model);
+        }
         public ActionResult LisaaRivi(TilausLuontiVM model) //Hoitaa lisää rivi buttonin toiminnon
         {
             model.uusirivi = true;

@@ -10,7 +10,7 @@ using TilausJärjestelmä.Controllers;
 
 namespace TilausJärjestelmä.Models
 {
-    public class LoginActionFilter : ActionFilterAttribute
+    public class LoginActionFilter : ActionFilterAttribute  //Luokka varmistaa että ilman kirjautumista ei voi käyttää ohjelmaa
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
