@@ -139,26 +139,23 @@
       <DependentUpon>TilausDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Helpers\Checker.cs" />
+    <Compile Include="Models\Helpers\LoginActionFilter.cs" />
     <Compile Include="Models\Henkilot.cs">
       <DependentUpon>TilausDb.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Helpers\LoginActionFilter.cs" />
     <Compile Include="Models\Logins.cs">
+      <DependentUpon>TilausDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Postitoimipaikat.cs">
+      <DependentUpon>TilausDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tilaukset.cs">
       <DependentUpon>TilausDb.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TilausModel\TilausViewModelBase.cs" />
     <Compile Include="Models\TilausRiviModel\TilausRiviCache.cs" />
     <Compile Include="Models\TilausModel\TilausLuontiVM.cs" />
     <Compile Include="Models\TilausRiviModel\TilausRiviVM.cs" />
-    <Compile Include="Models\Postitoimipaikat.cs">
-      <DependentUpon>TilausDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagrams.cs">
-      <DependentUpon>TilausDb.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Tilaukset.cs">
-      <DependentUpon>TilausDb.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\TilausDb.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -174,10 +171,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TilausDb.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\TilausModel\TilausViewModel.cs" />
     <Compile Include="Models\Tilausrivit.cs">
       <DependentUpon>TilausDb.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TilausModel\TilausViewModel.cs" />
     <Compile Include="Models\Tuotteet.cs">
       <DependentUpon>TilausDb.tt</DependentUpon>
     </Compile>
