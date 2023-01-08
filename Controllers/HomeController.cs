@@ -16,6 +16,8 @@ namespace TilausJärjestelmä.Controllers
         {
             if (Session["UserName"] != null)
             {
+                Cacher listCache = new Cacher();
+                listCache.TyhjennäLista();
                 Session.Abandon();
             }
             Session["LogStatus"] = "Kirjaudu sisään";

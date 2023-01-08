@@ -17,8 +17,6 @@ namespace TilausJärjestelmä.Controllers
     [LoginActionFilter]
     public class TilausHallintaController : BaseController
     {
-
-
         // GET: TilausHallinta
         public ActionResult Index()
         {
@@ -73,13 +71,13 @@ namespace TilausJärjestelmä.Controllers
 
             TilausLuontiVM.HaeAsiakkaatJaTuotteet(model, db);
 
-            //Muutetaangeneric listaks, jotta saadaan find metohdi käyttöön
+            //Muutetaan generic listaks, jotta saadaan find metohdi käyttöön
             List<Asiakkaat> asiakaslista = model.asiakkaat.ToList();
             List<Tuotteet> tuotelista = model.tuotteet.ToList();
 
             //Haetaan tiedot jos ne on client puolelta valittu
-            Tuotteet tuote = tuotelista.Find(a => a.Nimi == model.selectedTuote);
-            Asiakkaat asia = asiakaslista.Find(a => a.Nimi == model.selectedAsiakas);
+            Tuotteet tuote = tuotelista.Find(a => a.Nimi == model.valittuTuote);
+            Asiakkaat asia = asiakaslista.Find(a => a.Nimi == model.valittuAsiakas);
 
             //Asiakas Tiedot!
             //Jos on valittu asiakas client puolelta niin haetaan oikeat tiedot
@@ -90,12 +88,6 @@ namespace TilausJärjestelmä.Controllers
                 model.TilausID = TilausLuontiVM.HaeTilausnumero(db);
                 model.Postitoimipaikka = asia.Postitoimipaikat.Postitoimipaikka.ToString();
                 model.Postinumero = asia.Postinumero.ToString();
-
-                //Liitä kalenteri ominaisuus jossain vaiheessa?
-                DateTime time = DateTime.Now;
-                model.Tilauspvm = time;
-                model.Toimituspvm = time.AddDays(3);
-                model.ToimitusAika = model.Toimituspvm.Value.Day - model.Tilauspvm.Value.Day;
             }
             else
             {
@@ -116,12 +108,21 @@ namespace TilausJärjestelmä.Controllers
             {
                 model.TyhjennäTuoteTeidot();
             }
+
+            //Liitä kalenteri ominaisuus jossain vaiheessa?
+            //Päivämäärä hallinta
+            model.ToimitusPvmLista = new List<string>();
+            model.Tilauspvm = DateTime.Now.Date;
+            if (model.Toimituspvm != null)
+            {
+                model.ToimitusAika = model.Toimituspvm.Value.Day - model.Tilauspvm.Value.Day;
+            }
             //Luodaan Cache objekti, tällä pidetään kirjaa lisätyistä tilausriveistä
             Cacher listCache = new Cacher(); 
             if (model.uusirivi && model.maara > 0 && tuote != null && asia != null)
             {
                 int riviId = TilausLuontiVM.HaeTilausRivi(db) + listCache.CacheLista.Count();
-                listCache.CacheLista.Add(new TilausRiviVM(model.selectedTuote, model.maara, model.Rivisumma, riviId, model.Tuotenmr));
+                listCache.CacheLista.Add(new TilausRiviVM(model.valittuTuote, model.maara, model.Rivisumma, riviId, model.Tuotenmr));
                 model.uusirivi = false;
             }
             if (model.rivinpoisto)
@@ -205,12 +206,19 @@ namespace TilausJärjestelmä.Controllers
         {
             return RedirectToAction("TilauksenLuonti", model);
         }
-
+        [HttpPost]
+        public ActionResult ToimitusPvmValinta(TilausLuontiVM model) //Kiertää tätä kautta Toimituspäivä dropdowboxin valinnan yhteydessä
+        {
+            model.Toimituspvm = DateTime.Parse(model.ToimitusPaivastring);
+            return RedirectToAction("TilauksenLuonti", model);
+        }
         public ActionResult TallennaTilaus(TilausLuontiVM model)
         {
             Cacher listCache = new Cacher();
-            if (String.IsNullOrEmpty(model.selectedAsiakas) || String.IsNullOrEmpty(model.selectedTuote) || listCache.CacheLista.Count() == 0)
+            if (String.IsNullOrEmpty(model.valittuAsiakas) || String.IsNullOrEmpty(model.valittuTuote) || listCache.CacheLista.Count() == 0
+                || model.Toimituspvm == null)
             {
+                //Heittää takaisin TilauksenLuonti actioniin ja merkkaa errorin
                 model.error = true;
                 return RedirectToAction("TilauksenLuonti", model);
             }
@@ -247,8 +255,10 @@ namespace TilausJärjestelmä.Controllers
         {
             Cacher listCache = new Cacher();
             listCache.TyhjennäLista();
-            model.selectedAsiakas = null;
-            model.selectedTuote = null;
+            model.valittuAsiakas = null;
+            model.valittuTuote = null;
+            model.Toimituspvm = null;
+            model.ToimitusPaivastring = null;
             return RedirectToAction("TilauksenLuonti", model);
         }
 
@@ -256,8 +266,10 @@ namespace TilausJärjestelmä.Controllers
         {
             Cacher listCache = new Cacher();
             listCache.TyhjennäLista();
-            model.selectedAsiakas = null;
-            model.selectedTuote = null;
+            model.valittuAsiakas = null;
+            model.valittuTuote = null;
+            model.Toimituspvm = null;
+            model.ToimitusPaivastring = null;
             return RedirectToAction("Index");
         }
 

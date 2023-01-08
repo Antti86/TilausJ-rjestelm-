@@ -5,7 +5,7 @@ using System.Web;
 
 namespace TilausJärjestelmä.Models.TilausModel
 {
-    public abstract class TilausViewModelBase
+    public abstract class TilausViewModelBase   //Abstarct luokka missä Tilauksen perus ominausuudet
     {
         public string Asiakas { get; set; }
 

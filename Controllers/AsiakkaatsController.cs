@@ -63,7 +63,7 @@ namespace TilausJärjestelmä.Controllers
         // GET: Asiakkaats/Create
         public ActionResult Create()
         {
-            ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postitoimipaikka");
+            ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postinumero");
             return View();
         }
 
@@ -74,18 +74,19 @@ namespace TilausJärjestelmä.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "AsiakasID,Nimi,Osoite,Postinumero")] Asiakkaat asiakkaat)
         {
+            
             if (ModelState.IsValid)
             {
                 if (asiakkaat.Nimi == null || asiakkaat.Nimi == "")
                 {
                     ModelState.AddModelError("Nimi", "Nimi ei voi olla tyhjä!");
-                    ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postitoimipaikka", asiakkaat.Postinumero);
+                    ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postinumero", asiakkaat.Postinumero);
                     return View(asiakkaat);
                 }
                 if (asiakkaat.Osoite == null || asiakkaat.Osoite == "")
                 {
                     ModelState.AddModelError("Osoite", "Osoite ei voi olla tyhjä!");
-                    ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postitoimipaikka", asiakkaat.Postinumero);
+                    ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postinumero", asiakkaat.Postinumero);
                     return View(asiakkaat);
                 }
                 db.Asiakkaat.Add(asiakkaat);
@@ -93,7 +94,7 @@ namespace TilausJärjestelmä.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postitoimipaikka", asiakkaat.Postinumero);
+            ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postinumero", asiakkaat.Postinumero);
             return View(asiakkaat);
         }
 
@@ -109,7 +110,7 @@ namespace TilausJärjestelmä.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postitoimipaikka", asiakkaat.Postinumero);
+            ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postinumero", asiakkaat.Postinumero);
             return View(asiakkaat);
         }
 
@@ -125,20 +126,20 @@ namespace TilausJärjestelmä.Controllers
                 if (asiakkaat.Nimi == null || asiakkaat.Nimi == "")
                 {
                     ModelState.AddModelError("Nimi", "Nimi ei voi olla tyhjä!");
-                    ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postitoimipaikka", asiakkaat.Postinumero);
+                    ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postinumero", asiakkaat.Postinumero);
                     return View(asiakkaat);
                 }
                 if (asiakkaat.Osoite == null || asiakkaat.Osoite == "")
                 {
                     ModelState.AddModelError("Osoite", "Osoite ei voi olla tyhjä!");
-                    ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postitoimipaikka", asiakkaat.Postinumero);
+                    ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postinumero", asiakkaat.Postinumero);
                     return View(asiakkaat);
                 }
                 db.Entry(asiakkaat).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postitoimipaikka", asiakkaat.Postinumero);
+            ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postinumero", asiakkaat.Postinumero);
             return View(asiakkaat);
         }
 

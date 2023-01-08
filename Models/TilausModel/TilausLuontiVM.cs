@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using TilausJärjestelmä.Models.TilausModel;
 
 namespace TilausJärjestelmä.Models
@@ -11,7 +12,7 @@ namespace TilausJärjestelmä.Models
     {
         //Asiakkaat
         public IEnumerable<Asiakkaat> asiakkaat { get; set; }
-        public string selectedAsiakas { get; set; }
+        public string valittuAsiakas { get; set; }
         public int? AsiakasID { get; set; }
         public void TyhjennäAsiakasTiedot()
         {
@@ -20,14 +21,12 @@ namespace TilausJärjestelmä.Models
             TilausID = null;
             Postitoimipaikka = null;
             Postinumero = null;
-            Tilauspvm = null;
-            Toimituspvm = null;
             ToimitusAika = null;
         }
 
         //Tuotteet
         public IEnumerable<Tuotteet> tuotteet { get; set; }
-        public string selectedTuote { get; set; }
+        public string valittuTuote { get; set; }
         public int maara { get; set; } = 0;
         public int? Tuotenmr { get; set; }
         public void TyhjennäTuoteTeidot()
@@ -92,5 +91,27 @@ namespace TilausJärjestelmä.Models
         public bool error { get; set; } = false;
 
         public int? PoistoIndexi { get; set; }
+
+        //Päivämäärän dropdown valikkoon ominaisuuksia
+        private List<string> _ToimitusPvmLista { get; set; } = new List<string>();
+
+        public List<string> ToimitusPvmLista
+        {
+            get
+            {
+                return _ToimitusPvmLista;
+            }
+            set
+            {
+                _ToimitusPvmLista.Clear();
+                DateTime time = DateTime.Now.Date;
+                for (int i = 1; i < 15; i++)
+                {
+                    var time2 = time.AddDays(i);
+                    _ToimitusPvmLista.Add(time2.ToString());
+                }
+            }
+        }
+        public string ToimitusPaivastring { get; set; }
     }
 }

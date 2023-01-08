@@ -17,7 +17,7 @@
         @using (Html.BeginForm("AsiakaValinta", "TilausHallinta", Model, FormMethod.Post))
         {
             <label class="form-label mt-4">Asiakas</label>
-            @Html.DropDownListFor(x => x.selectedAsiakas, new SelectList(Model.asiakkaat.Select(s => s.Nimi)),
+            @Html.DropDownListFor(x => x.valittuAsiakas, new SelectList(Model.asiakkaat.Select(s => s.Nimi)),
            "Valitse asiakas", new { @class = "form-select", onchange = "this.form.submit()" })
         }
     </div>
@@ -33,7 +33,7 @@
         @using (Html.BeginForm("TuoteValinta", "TilausHallinta", Model, FormMethod.Post))
         {
             <label class="form-label mt-4">Tuote</label>
-            @Html.DropDownListFor(x => x.selectedTuote, new SelectList(Model.tuotteet.Select(s => s.Nimi)),
+            @Html.DropDownListFor(x => x.valittuTuote, new SelectList(Model.tuotteet.Select(s => s.Nimi)),
            "Valitse Tuote", new { @class = "form-select", onchange = "this.form.submit()" })
         }
     </div>
@@ -178,10 +178,12 @@
         </fieldset>
     </div>
     <div class="col-2">
-        <fieldset disabled="">
-            <label class="form-label mt-4" for="disabledInput5">Toimitus.Pvm</label>
-            <input class="form-control" id="disabledInput5" type="text" value="@Model.Toimituspvm" placeholder="" disabled="">
-        </fieldset>
+        @using (Html.BeginForm("ToimitusPvmValinta", "TilausHallinta", Model, FormMethod.Post))
+        {
+            <label class="form-label mt-4">Toimituspvm</label>
+            @Html.DropDownListFor(x => x.ToimitusPaivastring, new SelectList(Model.ToimitusPvmLista),
+           "Valitse Pvm", new { @class = "form-select", onchange = "this.form.submit()" })
+        }
     </div>
 </div>
 

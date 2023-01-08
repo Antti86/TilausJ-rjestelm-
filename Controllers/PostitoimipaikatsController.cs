@@ -88,6 +88,11 @@ namespace TilausJärjestelmä.Controllers
                     ModelState.AddModelError("postinumero", "Postinumero on jo käytössä");
                     return View(postitoimipaikat);
                 }
+                if (!Checker.IsNumeric(postitoimipaikat.Postinumero))
+                {
+                    ModelState.AddModelError("postinumero", "Postinumero pitää olla numeroita");
+                    return View(postitoimipaikat);
+                }
                 db.Postitoimipaikat.Add(postitoimipaikat);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -120,6 +125,18 @@ namespace TilausJärjestelmä.Controllers
         {
             if (ModelState.IsValid)
             {
+                var check = from i in db.Postitoimipaikat
+                            select i.Postinumero;
+                if (check.Contains(postitoimipaikat.Postinumero))
+                {
+                    ModelState.AddModelError("postinumero", "Postinumero on jo käytössä");
+                    return View(postitoimipaikat);
+                }
+                if (!Checker.IsNumeric(postitoimipaikat.Postinumero))
+                {
+                    ModelState.AddModelError("postinumero", "Postinumero pitää olla numeroita");
+                    return View(postitoimipaikat);
+                }
                 db.Entry(postitoimipaikat).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
