@@ -11,7 +11,7 @@ using TilausJärjestelmä.Models;
 
 namespace TilausJärjestelmä.Controllers
 {
-    [LoginActionFilter]
+    //[LoginActionFilter]
     public class PostitoimipaikatsController : BaseController
     {
 

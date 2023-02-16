@@ -11,7 +11,7 @@ using TilausJärjestelmä.Models;
 
 namespace TilausJärjestelmä.Controllers
 {
-    [LoginActionFilter]
+    //[LoginActionFilter]
     public class AsiakkaatsController : BaseController
     {
 
@@ -26,7 +26,8 @@ namespace TilausJärjestelmä.Controllers
             ViewBag.Search = searchString;
             if (!String.IsNullOrEmpty(searchString))
             {
-                asiakkaat = asiakkaat.Where(s => s.Nimi.Contains(searchString));
+                asiakkaat = asiakkaat.Where(s => s.Nimi.Contains(searchString) ||
+                s.Postitoimipaikat.Postitoimipaikka.Contains(searchString) || s.Osoite.Contains(searchString));
             }
             ViewBag.Sort = sortOrder;
             switch (sortOrder)
@@ -94,6 +95,8 @@ namespace TilausJärjestelmä.Controllers
                 return RedirectToAction("Index");
             }
 
+
+
             ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postinumero", asiakkaat.Postinumero);
             return View(asiakkaat);
         }
@@ -101,16 +104,28 @@ namespace TilausJärjestelmä.Controllers
         // GET: Asiakkaats/Edit/5
         public ActionResult Edit(int? id)
         {
+
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Asiakkaat asiakkaat = db.Asiakkaat.Find(id);
+            var posti = db.Postitoimipaikat;
+            IEnumerable<SelectListItem> selectPostiList = from p in posti
+                                                          select new SelectListItem
+                                                          {
+                                                              Value = p.Postinumero,
+                                                              Text = p.Postinumero + " " + p.Postitoimipaikka
+                                                          };
+
             if (asiakkaat == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postinumero", asiakkaat.Postinumero);
+
+            ViewBag.Postinumero = new SelectList(selectPostiList, "Value", "Text", asiakkaat.Postinumero);
+            //ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postinumero", asiakkaat.Postinumero);
             return View(asiakkaat);
         }
 
@@ -121,25 +136,37 @@ namespace TilausJärjestelmä.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "AsiakasID,Nimi,Osoite,Postinumero")] Asiakkaat asiakkaat)
         {
+
+            var posti = db.Postitoimipaikat;
+            IEnumerable<SelectListItem> selectPostiList = from p in posti
+                                                          select new SelectListItem
+                                                          {
+                                                              Value = p.Postinumero,
+                                                              Text = p.Postinumero + " " + p.Postitoimipaikka
+                                                          };
+
+
             if (ModelState.IsValid)
             {
                 if (asiakkaat.Nimi == null || asiakkaat.Nimi == "")
                 {
                     ModelState.AddModelError("Nimi", "Nimi ei voi olla tyhjä!");
-                    ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postinumero", asiakkaat.Postinumero);
+                    ViewBag.Postinumero = new SelectList(selectPostiList, "Value", "Text", asiakkaat.Postinumero);
                     return View(asiakkaat);
                 }
                 if (asiakkaat.Osoite == null || asiakkaat.Osoite == "")
                 {
                     ModelState.AddModelError("Osoite", "Osoite ei voi olla tyhjä!");
-                    ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postinumero", asiakkaat.Postinumero);
+                    ViewBag.Postinumero = new SelectList(selectPostiList, "Value", "Text", asiakkaat.Postinumero);
                     return View(asiakkaat);
                 }
                 db.Entry(asiakkaat).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postinumero", asiakkaat.Postinumero);
+            ViewBag.Postinumero = new SelectList(selectPostiList, "Value", "Text", asiakkaat.Postinumero);
+
+            //ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postinumero", asiakkaat.Postinumero);
             return View(asiakkaat);
         }
 

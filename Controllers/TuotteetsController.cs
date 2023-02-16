@@ -10,7 +10,7 @@ using TilausJärjestelmä.Models;
 
 namespace TilausJärjestelmä.Controllers
 {
-    [LoginActionFilter]
+    //[LoginActionFilter]
     public class TuotteetsController : BaseController
     {
         
