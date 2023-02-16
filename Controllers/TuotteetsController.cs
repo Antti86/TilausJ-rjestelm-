@@ -11,6 +11,7 @@ using TilausJärjestelmä.Models;
 namespace TilausJärjestelmä.Controllers
 {
     //[LoginActionFilter]
+    [AuthFilter]
     public class TuotteetsController : BaseController
     {
         

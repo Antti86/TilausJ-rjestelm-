@@ -138,6 +138,7 @@
     <Compile Include="Models\Asiakkaat.cs">
       <DependentUpon>TilausDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Helpers\AuthFilter.cs" />
     <Compile Include="Models\Helpers\Checker.cs" />
     <Compile Include="Models\Helpers\LoginActionFilter.cs" />
     <Compile Include="Models\Henkilot.cs">
