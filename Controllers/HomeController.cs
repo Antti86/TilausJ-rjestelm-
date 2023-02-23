@@ -14,7 +14,7 @@ namespace TilausJärjestelmä.Controllers
         
         public ActionResult Index()
         {
-            if (Session["UserName"] != null)
+            if (Session["UserName"] != null) //Menee tähän kun kirjaudutaan ulos
             {
                 Cacher listCache = new Cacher();
                 listCache.TyhjennäLista();
@@ -34,6 +34,7 @@ namespace TilausJärjestelmä.Controllers
                 string statustext = "Kirjaudu ulos (" + LoggedUser.UserName + ")";
                 Session["LogStatus"] = statustext;
                 Session["UserName"] = LoggedUser.UserName;
+                Session["Level"] = "1";
                 return RedirectToAction("Index", "TilausHallinta");
             }
             else
@@ -44,6 +45,11 @@ namespace TilausJärjestelmä.Controllers
             }
         }
 
+        public ActionResult ErrorViesti()
+        {
+            Session["Denied"] = "True"; //Laitetaan flag layout sivulle joka kutsuu partial viewsiä sen mukaan
+            return Redirect(Request.UrlReferrer.ToString()); //Hakee ja palauttaa edellisen sivun
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

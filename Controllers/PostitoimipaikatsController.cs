@@ -11,8 +11,7 @@ using TilausJärjestelmä.Models;
 
 namespace TilausJärjestelmä.Controllers
 {
-    //[LoginActionFilter]
-    [AuthFilter]
+    [AuthFilter(VaadittuLvl = 1)]
     public class PostitoimipaikatsController : BaseController
     {
 
@@ -68,6 +67,7 @@ namespace TilausJärjestelmä.Controllers
         }
 
         // GET: Postitoimipaikats/Create
+        [AuthFilter(VaadittuLvl = 2)]
         public ActionResult Create()
         {
             return View();
@@ -78,6 +78,7 @@ namespace TilausJärjestelmä.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthFilter(VaadittuLvl = 2)]
         public ActionResult Create([Bind(Include = "Postinumero,Postitoimipaikka")] Postitoimipaikat postitoimipaikat)
         {
             if (ModelState.IsValid)
@@ -103,6 +104,7 @@ namespace TilausJärjestelmä.Controllers
         }
 
         // GET: Postitoimipaikats/Edit/5
+        [AuthFilter(VaadittuLvl = 2)]
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -122,6 +124,7 @@ namespace TilausJärjestelmä.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthFilter(VaadittuLvl = 2)]
         public ActionResult Edit([Bind(Include = "Postinumero,Postitoimipaikka")] Postitoimipaikat postitoimipaikat)
         {
             if (ModelState.IsValid)
@@ -146,6 +149,7 @@ namespace TilausJärjestelmä.Controllers
         }
 
         // GET: Postitoimipaikats/Delete/5
+        [AuthFilter(VaadittuLvl = 2)]
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -163,6 +167,7 @@ namespace TilausJärjestelmä.Controllers
         // POST: Postitoimipaikats/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [AuthFilter(VaadittuLvl = 2)]
         public ActionResult DeleteConfirmed(string id)
         {
             Postitoimipaikat postitoimipaikat = db.Postitoimipaikat.Find(id);

@@ -14,6 +14,15 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
+
+    @{
+        if (Session["Denied"] != null)
+        {
+            Html.RenderPartial("_KäyttoOikeusVirhe");
+            Session["Denied"] = null;
+        }
+
+    }
     <h1 style="text-align:center">Tilausjärjestelmä</h1>
     <br />
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">

@@ -14,8 +14,8 @@ using TilausJärjestelmä.Models;
 
 namespace TilausJärjestelmä.Controllers
 {
-    //[LoginActionFilter]
-    [AuthFilter]
+    
+    [AuthFilter(VaadittuLvl = 1)]
     public class TilausHallintaController : BaseController
     {
         // GET: TilausHallinta
