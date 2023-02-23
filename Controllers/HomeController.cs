@@ -24,7 +24,7 @@ namespace TilausJärjestelmä.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Authorize(Logins model)
+        public ActionResult Authorize(LoginsVM model)
         {
 
             //Haetaan käyttäjän/Loginin tiedot annetuilla tunnustiedoilla tietokannasta LINQ -kyselyllä
@@ -34,7 +34,7 @@ namespace TilausJärjestelmä.Controllers
                 string statustext = "Kirjaudu ulos (" + LoggedUser.UserName + ")";
                 Session["LogStatus"] = statustext;
                 Session["UserName"] = LoggedUser.UserName;
-                Session["Level"] = "1";
+                Session["Level"] = Convert.ToString(LoggedUser.Level);
                 return RedirectToAction("Index", "TilausHallinta");
             }
             else

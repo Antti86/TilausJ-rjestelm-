@@ -33,6 +33,7 @@
           <Property Name="LoginId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PassWord" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Level" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Postitoimipaikat">
           <Key>
@@ -223,6 +224,7 @@
           <Property Name="LoginId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PassWord" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Level" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Postitoimipaikat">
           <Key>
@@ -361,6 +363,7 @@
           <EntitySetMapping Name="Logins">
             <EntityTypeMapping TypeName="TilausDBModel.Logins">
               <MappingFragment StoreEntitySet="Logins">
+                <ScalarProperty Name="Level" ColumnName="Level" />
                 <ScalarProperty Name="PassWord" ColumnName="PassWord" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="LoginId" ColumnName="LoginId" />
