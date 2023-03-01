@@ -12,7 +12,7 @@ using TilausJärjestelmä.Models;
 namespace TilausJärjestelmä.Controllers
 {
     //[LoginActionFilter]
-    [AuthFilter(VaadittuLvl = 1)]
+    [AuthFilter(RequiredLevel = 1)]
     public class AsiakkaatsController : BaseController
     {
 
@@ -63,7 +63,7 @@ namespace TilausJärjestelmä.Controllers
         }
 
         // GET: Asiakkaats/Create
-        [AuthFilter(VaadittuLvl = 2)]
+        [AuthFilter(RequiredLevel = 2)]
         public ActionResult Create()
         {
             ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postinumero");
@@ -75,7 +75,7 @@ namespace TilausJärjestelmä.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [AuthFilter(VaadittuLvl = 2)]
+        [AuthFilter(RequiredLevel = 2)]
         public ActionResult Create([Bind(Include = "AsiakasID,Nimi,Osoite,Postinumero")] Asiakkaat asiakkaat)
         {
             
@@ -105,7 +105,7 @@ namespace TilausJärjestelmä.Controllers
         }
 
         // GET: Asiakkaats/Edit/5
-        [AuthFilter(VaadittuLvl = 2)]
+        [AuthFilter(RequiredLevel = 2)]
         public ActionResult Edit(int? id)
         {
 
@@ -138,7 +138,7 @@ namespace TilausJärjestelmä.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [AuthFilter(VaadittuLvl = 2)]
+        [AuthFilter(RequiredLevel = 2)]
         public ActionResult Edit([Bind(Include = "AsiakasID,Nimi,Osoite,Postinumero")] Asiakkaat asiakkaat)
         {
 
@@ -176,7 +176,7 @@ namespace TilausJärjestelmä.Controllers
         }
 
         // GET: Asiakkaats/Delete/5
-        [AuthFilter(VaadittuLvl = 2)]
+        [AuthFilter(RequiredLevel = 2)]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -194,7 +194,7 @@ namespace TilausJärjestelmä.Controllers
         // POST: Asiakkaats/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [AuthFilter(VaadittuLvl = 2)]
+        [AuthFilter(RequiredLevel = 2)]
         public ActionResult DeleteConfirmed(int id)
         {
             Asiakkaat asiakkaat = db.Asiakkaat.Find(id);

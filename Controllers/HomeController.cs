@@ -18,9 +18,15 @@ namespace TilausJärjestelmä.Controllers
             {
                 Cacher listCache = new Cacher();
                 listCache.TyhjennäLista();
+                Session["Level"] = null;
                 Session.Abandon();
             }
             Session["LogStatus"] = "Kirjaudu sisään";
+
+
+
+
+
             return View();
         }
         [HttpPost]

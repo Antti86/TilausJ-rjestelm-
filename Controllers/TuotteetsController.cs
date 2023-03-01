@@ -10,7 +10,7 @@ using TilausJärjestelmä.Models;
 
 namespace TilausJärjestelmä.Controllers
 {
-    [AuthFilter(VaadittuLvl = 1)]
+    [AuthFilter(RequiredLevel = 1)]
     public class TuotteetsController : BaseController
     {
         
@@ -77,7 +77,7 @@ namespace TilausJärjestelmä.Controllers
         }
 
         // GET: Tuotteets/Create
-        [AuthFilter(VaadittuLvl = 2)]
+        [AuthFilter(RequiredLevel = 2)]
         public ActionResult Create()
         {
             return View();
@@ -88,7 +88,7 @@ namespace TilausJärjestelmä.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [AuthFilter(VaadittuLvl = 2)]
+        [AuthFilter(RequiredLevel = 2)]
         public ActionResult Create([Bind(Include = "TuoteID,Nimi,Ahinta,Kuva")] Tuotteet tuotteet)
         {
             if (ModelState.IsValid)
@@ -107,7 +107,7 @@ namespace TilausJärjestelmä.Controllers
         }
 
         // GET: Tuotteets/Edit/5
-        [AuthFilter(VaadittuLvl = 2)]
+        [AuthFilter(RequiredLevel = 2)]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -127,7 +127,7 @@ namespace TilausJärjestelmä.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [AuthFilter(VaadittuLvl = 2)]
+        [AuthFilter(RequiredLevel = 2)]
         public ActionResult Edit([Bind(Include = "TuoteID,Nimi,Ahinta,Kuva")] Tuotteet tuotteet)
         {
             if (ModelState.IsValid)
@@ -145,7 +145,7 @@ namespace TilausJärjestelmä.Controllers
         }
 
         // GET: Tuotteets/Delete/5
-        [AuthFilter(VaadittuLvl = 2)]
+        [AuthFilter(RequiredLevel = 2)]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -163,7 +163,7 @@ namespace TilausJärjestelmä.Controllers
         // POST: Tuotteets/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [AuthFilter(VaadittuLvl = 2)]
+        [AuthFilter(RequiredLevel = 2)]
         public ActionResult DeleteConfirmed(int id)
         {
             Tuotteet tuotteet = db.Tuotteet.Find(id);

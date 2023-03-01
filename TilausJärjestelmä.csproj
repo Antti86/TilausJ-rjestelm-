@@ -129,6 +129,7 @@
     <Compile Include="Controllers\AsiakkaatsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\KayttajienHallintasController.cs" />
     <Compile Include="Controllers\PostitoimipaikatsController.cs" />
     <Compile Include="Controllers\TilausHallintaController.cs" />
     <Compile Include="Controllers\TuotteetsController.cs" />
@@ -268,6 +269,13 @@
     <Content Include="Views\TilausHallinta\TilauksenLuonti.cshtml" />
     <Content Include="Views\TilausHallinta\Delete.cshtml" />
     <Content Include="Views\Shared\_KäyttoOikeusVirhe.cshtml" />
+    <Content Include="Views\Shared\_PerusNavBar.cshtml" />
+    <Content Include="Views\Shared\_PaakayttajaNavBar.cshtml" />
+    <Content Include="Views\KayttajienHallintas\Create.cshtml" />
+    <Content Include="Views\KayttajienHallintas\Delete.cshtml" />
+    <Content Include="Views\KayttajienHallintas\Edit.cshtml" />
+    <Content Include="Views\KayttajienHallintas\Index.cshtml" />
+    <Content Include="Views\KayttajienHallintas\_LevelVaroitus.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

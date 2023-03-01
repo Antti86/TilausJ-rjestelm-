@@ -12,7 +12,7 @@ namespace TilausJärjestelmä.Models
     IAuthenticationFilter   //Customoitu AuthenticationFilter luokka mikä valvoo ja hoitaa että ennen jokaista actionia kirjautuminen on
                             // tehty ja että kirjautumis taso on vaadittu
     {
-        public int VaadittuLvl { get; set; } //Tämä asetetaan ennen controllerin actionia
+        public int RequiredLevel { get; set; } //Tämä asetetaan ennen controllerin actionia
         public void OnAuthentication(AuthenticationContext filterContext)
         {
             //Katsotaan onko session tiedoissa kirjautuminen, jos ei niin annetaan resultiks "HttpUnauthorizedResult"
@@ -45,7 +45,7 @@ namespace TilausJärjestelmä.Models
                     Level = int.Parse(Lvl);
                 }
 
-                if (Level < VaadittuLvl)
+                if (Level < RequiredLevel)
                 {
 
                     filterContext.Result = new RedirectToRouteResult(
