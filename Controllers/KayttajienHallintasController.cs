@@ -33,15 +33,24 @@ namespace TilausJärjestelmä.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "UserName,PassWord,Level")] Logins logins)
         {
-            
             logins.LoginId = LoginsVM.GetLoginId(db);
-            if (ModelState.IsValid)
-            {
-                db.Logins.Add(logins);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            var log = from i in db.Logins
+                      where i.UserName == logins.UserName
+                      select i;
 
+            if (log.Any())
+            {
+                ModelState.AddModelError("UserName", "Käyttäjätunnus on jo olemassa");
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    db.Logins.Add(logins);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
             return View(logins);
         }
 
@@ -102,6 +111,27 @@ namespace TilausJärjestelmä.Controllers
             db.Logins.Remove(logins);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+        [AuthFilter(RequiredLevel = 1)]
+        public ActionResult SalasananVaihto(string eka, string toka)
+        {
+            if ((string.IsNullOrEmpty(eka) || string.IsNullOrEmpty(toka)) || eka != toka)
+            {
+                return View();
+            }
+            string test = Convert.ToString(Session["UserName"]);
+
+            var kayttajat = from i in db.Logins
+                            select i;
+
+            var k = kayttajat.ToList();
+
+            Logins l = k.Find(x => x.UserName == test);
+            l.PassWord = eka;
+
+            db.Entry(l).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index", "TilausHallinta");
         }
 
         protected override void Dispose(bool disposing)

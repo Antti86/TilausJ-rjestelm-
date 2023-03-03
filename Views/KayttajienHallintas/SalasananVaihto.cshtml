@@ -1,0 +1,63 @@
+﻿
+
+@{
+    ViewBag.Title = "SalasananVaihto";
+}
+
+
+<script src="https://code.jquery.com/jquery-1.10.0.min.js"
+        integrity="sha256-2+LznWeWgL7AJ1ciaIG5rFP7GKemzzl+K75tRyTByOE="
+        crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        $("#toka0").change(function () {
+            if ($("#eka0").val() === $("#toka0").val()) {
+                $("#var").hide();
+            }
+            else {
+                $("#var").show();
+            }
+        })
+        $("#eka0").change(function () {
+            if ($("#eka0").val() === $("#toka0").val()) {
+                $("#var").hide();
+            }
+            else {
+                $("#var").show();
+            }
+        })
+        $("#tallenna").click(function () {
+            if ($("#eka0").val() === $("#toka0").val()) {
+                $("#Viest").modal('show');
+                $("#formi").delay(5000).submit();
+            } 
+        })
+    });
+</script>
+
+<h2>Salasanan Vaihtaminen</h2>
+
+<form id="formi">
+    <label class="form-label mt-4">Uusi salasana</label>
+    <input class="form-control me-sm-2" type="password" name="eka" id="eka0" value="">
+
+    <label class="form-label mt-4">Toista uusi salasana</label>
+    <input class="form-control me-sm-2" type="password" name="toka" id="toka0" value="">
+    <p id="var" style="color: red; display: none">Salasanat eivät täsmää</p>
+    <br />
+    <button class="btn btn-secondary my-2 my-sm-0" id="tallenna" type="button">Muuta</button>
+
+</form>
+
+<div class="modal fade" id="Viest">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Salasana on muutettu!</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

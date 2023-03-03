@@ -10,8 +10,6 @@ namespace TilausJärjestelmä.Controllers
 
     public class HomeController : BaseController
     {
-
-        
         public ActionResult Index()
         {
             if (Session["UserName"] != null) //Menee tähän kun kirjaudutaan ulos
@@ -22,11 +20,6 @@ namespace TilausJärjestelmä.Controllers
                 Session.Abandon();
             }
             Session["LogStatus"] = "Kirjaudu sisään";
-
-
-
-
-
             return View();
         }
         [HttpPost]
@@ -41,6 +34,11 @@ namespace TilausJärjestelmä.Controllers
                 Session["LogStatus"] = statustext;
                 Session["UserName"] = LoggedUser.UserName;
                 Session["Level"] = Convert.ToString(LoggedUser.Level);
+
+                if (LoggedUser.PassWord == "1234")
+                {
+                    return RedirectToAction("SalasananVaihto", "KayttajienHallintas"); //Tähän jatko viesti
+                }
                 return RedirectToAction("Index", "TilausHallinta");
             }
             else
