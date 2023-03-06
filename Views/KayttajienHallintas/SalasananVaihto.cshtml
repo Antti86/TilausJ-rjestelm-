@@ -3,11 +3,11 @@
 @{
     ViewBag.Title = "SalasananVaihto";
 }
+<script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 
-
-<script src="https://code.jquery.com/jquery-1.10.0.min.js"
-        integrity="sha256-2+LznWeWgL7AJ1ciaIG5rFP7GKemzzl+K75tRyTByOE="
-        crossorigin="anonymous"></script>
+@*<script src="https://code.jquery.com/jquery-1.10.0.min.js"
+    integrity="sha256-2+LznWeWgL7AJ1ciaIG5rFP7GKemzzl+K75tRyTByOE="
+    crossorigin="anonymous"></script>*@
 <script>
     $(document).ready(function () {
         $("#toka0").change(function () {
@@ -29,8 +29,10 @@
         $("#tallenna").click(function () {
             if ($("#eka0").val() === $("#toka0").val()) {
                 $("#Viest").modal('show');
-                $("#formi").delay(5000).submit();
-            } 
+                setTimeout(() => {
+                    $("#formi").submit();
+                }, 3000);
+            }
         })
     });
 </script>

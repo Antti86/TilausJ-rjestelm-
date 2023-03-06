@@ -277,6 +277,7 @@
     <Content Include="Views\KayttajienHallintas\Index.cshtml" />
     <Content Include="Views\KayttajienHallintas\_LevelVaroitus.cshtml" />
     <Content Include="Views\KayttajienHallintas\SalasananVaihto.cshtml" />
+    <Content Include="Views\Shared\_SalasananVaihtoKehotus.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

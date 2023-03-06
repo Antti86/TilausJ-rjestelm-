@@ -21,6 +21,11 @@
             Html.RenderPartial("_KäyttoOikeusVirhe");
             Session["Denied"] = null;
         }
+        if (Session["FirstLogin"] != null)
+        {
+            Html.RenderPartial("_SalasananVaihtoKehotus");
+            Session["FirstLogin"] = null;
+        }
 
     }
     <h1 style="text-align:center">Tilausjärjestelmä</h1>

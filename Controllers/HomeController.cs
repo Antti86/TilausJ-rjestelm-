@@ -37,6 +37,7 @@ namespace TilausJärjestelmä.Controllers
 
                 if (LoggedUser.PassWord == "1234")
                 {
+                    Session["FirstLogin"] = "True";
                     return RedirectToAction("SalasananVaihto", "KayttajienHallintas"); //Tähän jatko viesti
                 }
                 return RedirectToAction("Index", "TilausHallinta");
