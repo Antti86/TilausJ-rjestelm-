@@ -1,0 +1,88 @@
+﻿@model TilausJärjestelmä.Models.Logins
+
+@{
+    ViewBag.Title = "Edit";
+}
+<script src="https://code.jquery.com/jquery-1.10.0.min.js"
+        integrity="sha256-2+LznWeWgL7AJ1ciaIG5rFP7GKemzzl+K75tRyTByOE="
+        crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        $("#nappi").click(function () {
+            if ($('#lvl').val() == 3) {
+                $("#Varoitus").modal('show');
+            }
+            else {
+                $("#myForm").submit();
+            }
+        })
+    });
+</script>
+
+
+
+<h2>Muokkaa käyttäjän tasoa</h2>
+
+@using (Html.BeginForm("Edit", "KayttajienHallintas", FormMethod.Post, new { @id = "myForm" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.LoginId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @readonly = "" } })
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("Salasana", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PassWord, new { htmlAttributes = new
+                    { @class = "form-control", type = "password", @readonly = "" }})
+                @Html.ValidationMessageFor(model => model.PassWord, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Level, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Level, new { htmlAttributes = new { @class = "form-control", id = "lvl", min = 1, max = 3 } })
+                @Html.ValidationMessageFor(model => model.Level, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input id="nappi" type="button" value="Tallenna" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="Varoitus">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Haluatko varmasti antaa tälle käyttäjälle pääkäyttäjän oikeudet?</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <input class="btn btn-primary col-12" type="submit" value="Kyllä">
+                    <a class="btn btn-secondary col-1" @Html.ActionLink("Takaisin", "Edit")
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

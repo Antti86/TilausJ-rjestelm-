@@ -129,6 +129,7 @@
     <Compile Include="Controllers\AsiakkaatsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\KayttajienHallintasController.cs" />
     <Compile Include="Controllers\PostitoimipaikatsController.cs" />
     <Compile Include="Controllers\TilausHallintaController.cs" />
     <Compile Include="Controllers\TuotteetsController.cs" />
@@ -138,8 +139,9 @@
     <Compile Include="Models\Asiakkaat.cs">
       <DependentUpon>TilausDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Helpers\AuthFilter.cs" />
     <Compile Include="Models\Helpers\Checker.cs" />
-    <Compile Include="Models\Helpers\LoginActionFilter.cs" />
+    <Compile Include="Models\Helpers\LoginsVM.cs" />
     <Compile Include="Models\Henkilot.cs">
       <DependentUpon>TilausDb.tt</DependentUpon>
     </Compile>
@@ -266,6 +268,16 @@
     <Content Include="Views\TilausHallinta\Tilausrivit.cshtml" />
     <Content Include="Views\TilausHallinta\TilauksenLuonti.cshtml" />
     <Content Include="Views\TilausHallinta\Delete.cshtml" />
+    <Content Include="Views\Shared\_KäyttoOikeusVirhe.cshtml" />
+    <Content Include="Views\Shared\_PerusNavBar.cshtml" />
+    <Content Include="Views\Shared\_PaakayttajaNavBar.cshtml" />
+    <Content Include="Views\KayttajienHallintas\Create.cshtml" />
+    <Content Include="Views\KayttajienHallintas\Delete.cshtml" />
+    <Content Include="Views\KayttajienHallintas\Edit.cshtml" />
+    <Content Include="Views\KayttajienHallintas\Index.cshtml" />
+    <Content Include="Views\KayttajienHallintas\_LevelVaroitus.cshtml" />
+    <Content Include="Views\KayttajienHallintas\SalasananVaihto.cshtml" />
+    <Content Include="Views\Shared\_SalasananVaihtoKehotus.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
