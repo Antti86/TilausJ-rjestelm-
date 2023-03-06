@@ -26,7 +26,8 @@ namespace TilausJärjestelmä.Controllers
 
         public ActionResult Tilausrivit(int id)
         {
-            return View(TilausRiviVM.GetViewModelList(id));
+            return PartialView(TilausRiviVM.GetViewModelList(id));
+            //return View(TilausRiviVM.GetViewModelList(id));
         }
 
         public ActionResult Delete(int? id)
