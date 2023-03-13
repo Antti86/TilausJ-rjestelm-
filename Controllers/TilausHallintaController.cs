@@ -26,7 +26,7 @@ namespace TilausJärjestelmä.Controllers
 
         public ActionResult Tilausrivit(int id)
         {
-            return View(TilausRiviVM.GetViewModelList(id));
+            return PartialView(TilausRiviVM.GetViewModelList(id));
         }
 
         public ActionResult Delete(int? id)
@@ -273,6 +273,8 @@ namespace TilausJärjestelmä.Controllers
             model.ToimitusPaivastring = null;
             return RedirectToAction("Index");
         }
+
+
 
         protected override void Dispose(bool disposing)
         {
