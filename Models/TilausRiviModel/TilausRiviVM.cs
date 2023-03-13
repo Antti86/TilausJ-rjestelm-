@@ -37,14 +37,14 @@ namespace TilausJärjestelmä.Models
             db.Dispose();
             return p;
         }
-        public string Tuote { get; set; }
+        public string Tuote { get; private set; }
 
-        public int? maara { get; set; }
+        public int? maara { get; private set; }
 
-        public decimal? Ahinta { get; set; }
+        public decimal? Ahinta { get; private set; }
 
-        public int? TilausriviID { get; set; }
+        public int? TilausriviID { get; private set; }
 
-        public int? TuoteID { get; set; }
+        public int? TuoteID { get; private set; }
     }
 }

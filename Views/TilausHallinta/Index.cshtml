@@ -12,147 +12,7 @@
 </div>
 <br />
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Asiakas)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Hinta)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Toimitusosoite)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Postinumero)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Postitoimipaikka)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tilauspvm)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Toimituspvm)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TilausID)
-        </th>
-        <th></th>
-    </tr>
-
-    @*@foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Asiakas)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Hinta)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Toimitusosoite)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Postinumero)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Postitoimipaikka)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Tilauspvm)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Toimituspvm)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TilausID)
-                </td>
-                <td>
-                    @Html.ActionLink("Tilausrivit", "Tilausrivit", new { id = item.TilausID }) |
-
-                    @Html.ActionLink("Muuta", "Edit", new { id = item.TilausID }) |
-
-                    @Html.ActionLink("Poista", "Delete", new { id = item.TilausID })
-                </td>
-            </tr>
-        }*@
-
-
-
-
-    @{
-        int i = 0;
-    }
-
-    @foreach (var item in Model)
-    {
-
-        string heading = "heading" + i.ToString();
-        string collapseId = "collapse" + i.ToString();
-        string parrent = "parrent" + i.ToString();
-        <tbody class="accordion" id="@parrent">
-           
-            <tr class="accordion-item" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#@collapseId" aria-expanded="false" aria-controls="@collapseId">
-
-                <td >
-                    @*<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#@collapseId" aria-expanded="false" aria-controls="@collapseId">
-                        
-                    </button>*@
-                    @Html.DisplayFor(modelItem => item.Asiakas)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Hinta)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Toimitusosoite)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Postinumero)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Postitoimipaikka)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Tilauspvm)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Toimituspvm)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TilausID)
-                </td>
-
-
-
-
-
-            <tr id="@collapseId" class="accordion-collapse collapse"  data-bs-parent="#@parrent" style="">
-                
-
-                <td class="accordion-body">
-                    @*<strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds
-        the appropriate classes that we use to style each element.
-        These classes control the overall appearance, as well as the showing and hiding via CSS transitions.
-        You can modify any of this with custom CSS or overriding our default variables.
-        It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>,
-        though the transition does limit overflow.*@
-                    @Html.Action("Tilausrivit", new { id = item.TilausID })
-                </td>
-
-            </tr>
-
-
-
-        </tbody>
-        i++;
-    }
-
-</table>
-
-@*@{
+@{
     int i = 0;
 }
 
@@ -164,10 +24,39 @@
     string parrent = "parrent" + i.ToString();
     <div class="accordion" id="@parrent">
         <div class="accordion-item">
-            <h2 class="accordion-header" id="@heading">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#@collapseId" aria-expanded="false" aria-controls="@collapseId">
-                    <table>
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#@collapseId" aria-expanded="false" aria-controls="@collapseId">
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Asiakas)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Hinta)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Toimitusosoite)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Postinumero)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Postitoimipaikka)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Tilauspvm)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Toimituspvm)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TilausID)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody style="color: green">
                         <tr>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Asiakas)
@@ -182,6 +71,9 @@
                                 @Html.DisplayFor(modelItem => item.Postinumero)
                             </td>
                             <td>
+                                @Html.DisplayFor(modelItem => item.Postitoimipaikka)
+                            </td>
+                            <td>
                                 @Html.DisplayFor(modelItem => item.Tilauspvm)
                             </td>
                             <td>
@@ -191,18 +83,15 @@
                                 @Html.DisplayFor(modelItem => item.TilausID)
                             </td>
                         </tr>
-                    </table>
+                    </tbody>
+                </table>
 
-                </button>
-            </h2>
+            </button>
+
             <div id="@collapseId" class="accordion-collapse collapse" aria-labelledby="@heading" data-bs-parent="#@parrent" style="">
                 <div class="accordion-body">
-                    <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds
-                    the appropriate classes that we use to style each element.
-                    These classes control the overall appearance, as well as the showing and hiding via CSS transitions.
-                    You can modify any of this with custom CSS or overriding our default variables.
-                    It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>,
-                    though the transition does limit overflow.
+                    @Html.Action("Tilausrivit", new { id = item.TilausID })
+                    <a class="btn btn-secondary col-12" @Html.ActionLink("Poista Tilaus", "Delete", new { id = item.TilausID })
                 </div>
             </div>
         </div>
@@ -210,4 +99,4 @@
 
     </div>
     i++;
-}*@
+}
