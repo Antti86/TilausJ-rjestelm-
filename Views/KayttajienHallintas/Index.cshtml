@@ -1,0 +1,45 @@
+﻿@model IEnumerable<TilausJärjestelmä.Models.LoginsVM>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+<div class="d-flex">
+    <h2>Käyttäjätietojen hallinta</h2>
+    <h3 style="margin-left: 50%">
+        <a class="btn btn-secondary col-12" @Html.ActionLink("Uusi Käyttäjä", "Create")
+    </h3>
+
+</div>
+<br />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayName("Turvallisuus taso")
+        </th>
+        <th>Toiminnot</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Level)
+            </td>
+
+            <td>
+                <a class="btn btn-secondary my-2 my-sm-0" @Html.ActionLink("Muuta oikeuksia", "Edit", new { id = item.LoginId })
+               <a class="btn btn-primary my-2 my-sm-0" @Html.ActionLink("Poista käyttäjä", "Delete", new { id = item.LoginId })
+            </td>
+        </tr>
+    }
+
+</table>

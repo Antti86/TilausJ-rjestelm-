@@ -3,28 +3,65 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TilausJärjestelmä.Models;
 
 namespace TilausJärjestelmä.Controllers
 {
-    public class HomeController : Controller
+
+    public class HomeController : BaseController
     {
         public ActionResult Index()
         {
+            if (Session["UserName"] != null) //Menee tähän kun kirjaudutaan ulos
+            {
+                Cacher listCache = new Cacher();
+                listCache.TyhjennäLista();
+                Session["Level"] = null;
+                Session.Abandon();
+            }
+            Session["LogStatus"] = "Kirjaudu sisään";
             return View();
         }
-
-        public ActionResult About()
+        [HttpPost]
+        public ActionResult Authorize(LoginsVM model)
         {
-            ViewBag.Message = "Your application description page.";
 
-            return View();
+            //Haetaan käyttäjän/Loginin tiedot annetuilla tunnustiedoilla tietokannasta LINQ -kyselyllä
+            var LoggedUser = db.Logins.SingleOrDefault(x => x.UserName == model.UserName && x.PassWord == model.PassWord);
+            if (LoggedUser != null)
+            {
+                string statustext = "Kirjaudu ulos (" + LoggedUser.UserName + ")";
+                Session["LogStatus"] = statustext;
+                Session["UserName"] = LoggedUser.UserName;
+                Session["Level"] = Convert.ToString(LoggedUser.Level);
+
+                if (LoggedUser.PassWord == "1234")
+                {
+                    Session["FirstLogin"] = "True";
+                    return RedirectToAction("SalasananVaihto", "KayttajienHallintas"); //Tähän jatko viesti
+                }
+                return RedirectToAction("Index", "TilausHallinta");
+            }
+            else
+            {
+                Session["LogStatus"] = "Kirjaudu sisään";
+                model.LoginErrorMessage = "Tuntematon käyttäjätunnus tai salasana.";
+                return View("Index", model);
+            }
         }
 
-        public ActionResult Contact()
+        public ActionResult ErrorViesti()
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            Session["Denied"] = "True"; //Laitetaan flag layout sivulle joka kutsuu partial viewsiä sen mukaan
+            return Redirect(Request.UrlReferrer.ToString()); //Hakee ja palauttaa edellisen sivun
+        }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

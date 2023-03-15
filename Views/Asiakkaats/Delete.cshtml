@@ -1,0 +1,48 @@
+﻿@model TilausJärjestelmä.Models.Asiakkaat
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h3>Haluatko varmasti poistaa tämän asiakkaan?</h3>
+<div>
+    <h4>Asiakas</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nimi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nimi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Osoite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Osoite)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Postitoimipaikat.Postitoimipaikka)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Postitoimipaikat.Postitoimipaikka)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+            @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Poista" name="Delete" class="btn btn-primary col-1" />
+            <a class="btn btn-secondary col-1" href="~/Asiakkaats/Index">Takaisin</a>
+        </div>
+
+    }
+</div>

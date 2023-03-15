@@ -1,0 +1,82 @@
+﻿@model TilausJärjestelmä.Models.Tilastot.TilastoKokoelmaVM
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://code.jquery.com/jquery-1.10.0.min.js"
+        integrity="sha256-2+LznWeWgL7AJ1ciaIG5rFP7GKemzzl+K75tRyTByOE="
+        crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        $('#Top10').click(function () {
+            $('#myChart').show();
+            $('#myChart1').hide();
+        })
+
+        $('#Viikko').click(function () {
+            $('#myChart1').show();
+            $('#myChart').hide();
+        })
+    });
+</script>
+@section scripts
+{
+    <script>
+        const ctx = document.getElementById('myChart');
+        let labelsChart = @Html.Raw(Json.Encode(Model.Top10Tuotelista.Top10.Select(x => x.Nimi)));
+        let dataChart = @Html.Raw(Json.Encode(Model.Top10Tuotelista.Top10.Select(x => x.Arvo)));
+         new Chart(ctx, {
+             type: 'bar',
+            data: {
+                    labels: labelsChart,
+                datasets: [{
+                        label: 'Top 10 myydyimmät tuotteet',
+                    data: dataChart,
+                    borderWidth: 10
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+        }
+            }
+        });
+        const ctx1 = document.getElementById('myChart1');
+
+        let labelsChart1 = @Html.Raw(Json.Encode(Model.ViikkoTilauslista.Viikko.Select(x => x.Key)));
+        let dataChart1 = @Html.Raw(Json.Encode(Model.ViikkoTilauslista.Viikko.Select(x => x.Value)));
+        new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: labelsChart1,
+                datasets: [{
+                    label: 'TIlaukset Viikonpäivän mukaan',
+                    data: dataChart1,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+        scales: {
+            y: {
+                beginAtZero: true
+                    }
+            }
+        }
+        });
+    </script>
+}
+
+<div>
+    <button class="btn btn-primary col-2" id="Top10" type="button">Top10</button>
+    <button class="btn btn-primary col-2" id="Viikko" type="button">Viikko</button>
+</div>
+<div>
+    <div>
+        <div>
+            <canvas id="myChart"></canvas>
+        </div>
+        <div>
+            <canvas style="display:none" id="myChart1"></canvas>
+        </div>
+    </div>
+</div>

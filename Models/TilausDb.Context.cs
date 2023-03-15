@@ -27,8 +27,8 @@ namespace TilausJärjestelmä.Models
     
         public virtual DbSet<Asiakkaat> Asiakkaat { get; set; }
         public virtual DbSet<Henkilot> Henkilot { get; set; }
+        public virtual DbSet<Logins> Logins { get; set; }
         public virtual DbSet<Postitoimipaikat> Postitoimipaikat { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Tilaukset> Tilaukset { get; set; }
         public virtual DbSet<Tilausrivit> Tilausrivit { get; set; }
         public virtual DbSet<Tuotteet> Tuotteet { get; set; }

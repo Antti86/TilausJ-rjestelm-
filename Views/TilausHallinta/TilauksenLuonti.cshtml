@@ -1,0 +1,215 @@
+﻿
+@model TilausJärjestelmä.Models.TilausLuontiVM
+
+@{
+    ViewBag.Title = "Tilauksen Luonti";
+}
+<div class="d-flex justify-content-between" style="height: 40px">
+    <h2 class="col-4">Tilauksen Luonti</h2>
+    @Html.ValidationMessage("Error", new { @class = "text-danger" })
+    <a class="btn btn-primary col-1" href="~/TilausHallinta/Takaisin">Takaisin</a>
+</div>
+
+
+@*------------RIVI 1---------------*@
+<div class="row">
+    <div class="col-2">
+        @using (Html.BeginForm("AsiakaValinta", "TilausHallinta", Model, FormMethod.Post))
+        {
+            <label class="form-label mt-4">Asiakas</label>
+            @Html.DropDownListFor(x => x.valittuAsiakas, new SelectList(Model.asiakkaat.Select(s => s.Nimi)),
+           "Valitse asiakas", new { @class = "form-select", onchange = "this.form.submit()" })
+        }
+    </div>
+
+    <div class="col-2">
+        <fieldset disabled="">
+            <label class="form-label mt-4" for="disabledInput0">Asiakas.nmr</label>
+            <input class="form-control" id="disabledInput0" type="text" value="@Model.AsiakasID" placeholder="" disabled="">
+        </fieldset>
+    </div>
+
+    <div class="col-2">
+        @using (Html.BeginForm("TuoteValinta", "TilausHallinta", Model, FormMethod.Post))
+        {
+            <label class="form-label mt-4">Tuote</label>
+            @Html.DropDownListFor(x => x.valittuTuote, new SelectList(Model.tuotteet.Select(s => s.Nimi)),
+           "Valitse Tuote", new { @class = "form-select", onchange = "this.form.submit()" })
+        }
+    </div>
+
+    <div class="col-1">
+        <fieldset disabled="">
+            <label class="form-label mt-4" for="disabledInput001">Tuote.nmr</label>
+            <input class="form-control" id="disabledInput001" type="text" value="@Model.Tuotenmr" placeholder="" disabled="">
+        </fieldset>
+    </div>
+
+    <div class="col-1">
+        <fieldset disabled="">
+            <label class="form-label mt-4" for="disabledInput002">Hinta</label>
+            <input class="form-control" id="disabledInput002" type="text" value="@Model.Hinta" placeholder="" disabled="">
+        </fieldset>
+    </div>
+
+    <div class="col-1">
+        <fieldset disabled="">
+            <label class="form-label mt-4" for="disabledInput003">Summa</label>
+            <input class="form-control" id="disabledInput003" type="text" value="@Model.Rivisumma" placeholder="" disabled="">
+        </fieldset>
+    </div>
+
+</div>
+
+@*------------RIVI 2---------------*@
+<div class="row">
+    <div class="col-2">
+        <fieldset disabled="">
+            <label class="form-label mt-4" for="disabledInput1">Toimitus osoite</label>
+            <input class="form-control" id="disabledInput1" type="text" value="@Model.Toimitusosoite" placeholder="" disabled="">
+        </fieldset>
+    </div>
+
+    <div class="col-2">
+        <fieldset disabled="">
+            <label class="form-label mt-4" for="disabledInput2">Tilaus.nmr</label>
+            <input class="form-control" id="disabledInput2" type="text" value="@Model.TilausID" placeholder="" disabled="">
+        </fieldset>
+    </div>
+
+    <div class="col-2">
+        <label class="form-label mt-4">Määrä</label>
+        <div class="d-flex">
+            <form class="d-flex col-3">
+                <a class="btn btn-light col-12" @Html.ActionLink("-", "Minus", Model)
+            </form>
+
+            @using (Html.BeginForm("MaaranMuutos", "TilausHallinta", Model, FormMethod.Post ,new {@class = "d-flex col-6"}))
+            {
+                <input class="form-control" type="text" name="maarax" value="@Model.maara" />
+            }
+
+            <form class="d-flex col-3">
+                <a class="btn btn-light col-12" @Html.ActionLink("+", "Plus", Model)
+            </form>
+        </div>
+
+
+    </div>
+
+    <div class="col-sm-2" style="margin: 56px 0px 0px 0px">
+        <a class="btn btn-secondary col-12" @Html.ActionLink("Lisää Rivi", "LisaaRivi", Model)
+    </div>
+
+    <div class="col-sm-2" style="margin: 56px 0px 0px 0px">
+        <a class="btn btn-secondary col-12" @Html.ActionLink("Tyhjennä Rivit", "TyhjennäRivit", Model)
+    </div>
+
+</div>
+
+@*------------RIVI 3---------------*@
+
+<div class="row" style="height: 100px">
+    <div class="col-2">
+        <fieldset disabled="">
+            <label class="form-label mt-4" for="disabledInput3">Postitoimipaikka</label>
+            <input class="form-control" id="disabledInput3" type="text" value="@Model.Postitoimipaikka" placeholder="" disabled="">
+        </fieldset>
+    </div>
+    <div class="col-2">
+        <fieldset disabled="">
+            <label class="form-label mt-4" for="disabledInput4">Postinumero</label>
+            <input class="form-control" id="disabledInput4" type="text" value="@Model.Postinumero" placeholder="" disabled="">
+        </fieldset>
+    </div>
+    <div class="col-8">
+        <label class="form-label mt-4" for="disabledInput03">Tilausrivit</label>
+        <table class="table">
+            <tr>
+                <th>
+                    Tuote
+                </th>
+                <th>
+                    Määrä
+                </th>
+                <th>
+                    Ahinta
+                </th>
+                <th>
+                    TilausriviID
+                </th>
+                <th> </th>
+            </tr>
+            @for (int i = 0; i < Model.aktiivisetRivit.Count(); i++)
+            {
+                <tr class="col-1">
+                    <td>
+                        @Model.aktiivisetRivit[i].Tuote
+                    </td>
+                    <td>
+                        @Model.aktiivisetRivit[i].maara
+                    </td>
+                    <td>
+                        @Model.aktiivisetRivit[i].Ahinta
+                    </td>
+                    <td>
+                        @Model.aktiivisetRivit[i].TilausriviID
+                    </td>
+                    <td>
+                        @{Model.PoistoIndexi = i; }
+                        <a class="btn btn-secondary col-12" @Html.ActionLink("Poista", "PoistaRivi", Model)
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+    </div>
+
+</div>
+
+
+@*------------RIVI 4---------------*@
+<div class="row">
+    <div class="col-2">
+        <fieldset disabled="">
+            <label class="form-label mt-4" for="disabledInput5">Tilaus.Pvm</label>
+            <input class="form-control" id="disabledInput5" type="text" value="@Model.Tilauspvm" placeholder="" disabled="">
+        </fieldset>
+    </div>
+    <div class="col-2">
+        @using (Html.BeginForm("ToimitusPvmValinta", "TilausHallinta", Model, FormMethod.Post))
+        {
+            <label class="form-label mt-4">Toimituspvm</label>
+            @Html.DropDownListFor(x => x.ToimitusPaivastring, new SelectList(Model.ToimitusPvmLista),
+           "Valitse Pvm", new { @class = "form-select", onchange = "this.form.submit()" })
+        }
+    </div>
+</div>
+
+@*------------RIVI 5---------------*@
+<div class="row">
+    <div class="col-2">
+        <fieldset disabled="">
+            <label class="form-label mt-4" for="disabledInput5">Toimitus aika</label>
+            <input class="form-control" id="disabledInput5" type="text" value="@Model.ToimitusAika" placeholder="" disabled="">
+        </fieldset>
+    </div>
+    <div class="col-2">
+        <fieldset disabled="">
+            <label class="form-label mt-4" for="disabledInput5">Kokonais summa</label>
+            <input class="form-control" id="disabledInput5" type="text" value="@Model.KokonaisSumma" placeholder="" disabled="">
+        </fieldset>
+    </div>
+</div>
+
+@*------------RIVI 6---------------*@
+<div class="row">
+    <div class="col-2" style="margin: 56px 0px 0px 0px">
+        <a class="btn btn-secondary col-12" @Html.ActionLink("Tyhjennä Tiedot", "TyhjennäTiedot", Model)
+    </div>
+    <div class="col-2" style="margin: 56px 0px 0px 0px">
+        <a class="btn btn-primary col-12" @Html.ActionLink("Tallenna Tilaus", "TallennaTilaus", Model)
+           
+    </div>
+</div>

@@ -5,18 +5,18 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="b7130319c5184174ab9e81051f49f2b0" Name="Diagram1">
-        <EntityTypeShape EntityType="TilausDBModel.Asiakkaat" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="TilausDBModel.Henkilot" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TilausDBModel.Postitoimipaikat" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="TilausDBModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TilausDBModel.Tilaukset" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="TilausDBModel.Tilausrivit" Width="1.5" PointX="7.5" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="TilausDBModel.Tuotteet" Width="1.5" PointX="5.25" PointY="5.375" IsExpanded="true" />
-        <AssociationConnector Association="TilausDBModel.FK_Asiakkaat_Postitoimipaikat" ManuallyRouted="false" />
-        <AssociationConnector Association="TilausDBModel.FK_Tilaukset_Asiakkaat" ManuallyRouted="false" />
-        <AssociationConnector Association="TilausDBModel.FK_Tilaukset_Postitoimipaikat" ManuallyRouted="false" />
-        <AssociationConnector Association="TilausDBModel.FK_Tilausrivit_Tilaukset" ManuallyRouted="false" />
-        <AssociationConnector Association="TilausDBModel.FK_Tilausrivit_Tuotteet" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TilausDBModel.Asiakkaat" Width="1.5" PointX="3" PointY="1.25" />
+        <EntityTypeShape EntityType="TilausDBModel.Henkilot" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="TilausDBModel.Logins" Width="1.5" PointX="7.75" PointY="4.75" />
+        <EntityTypeShape EntityType="TilausDBModel.Postitoimipaikat" Width="1.5" PointX="0.75" PointY="1.5" />
+        <EntityTypeShape EntityType="TilausDBModel.Tilaukset" Width="1.5" PointX="5.25" PointY="1" />
+        <EntityTypeShape EntityType="TilausDBModel.Tilausrivit" Width="1.5" PointX="7.5" PointY="1.125" />
+        <EntityTypeShape EntityType="TilausDBModel.Tuotteet" Width="1.5" PointX="5.25" PointY="5.375" />
+        <AssociationConnector Association="TilausDBModel.FK_Asiakkaat_Postitoimipaikat" />
+        <AssociationConnector Association="TilausDBModel.FK_Tilaukset_Asiakkaat" />
+        <AssociationConnector Association="TilausDBModel.FK_Tilaukset_Postitoimipaikat" />
+        <AssociationConnector Association="TilausDBModel.FK_Tilausrivit_Tilaukset" />
+        <AssociationConnector Association="TilausDBModel.FK_Tilausrivit_Tuotteet" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

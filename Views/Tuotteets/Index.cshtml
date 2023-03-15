@@ -1,0 +1,97 @@
+﻿@model IEnumerable<TilausJärjestelmä.Models.Tuotteet>
+
+<h2>Kaikki Tuotteet (@ViewBag.AllItems)</h2>
+
+<div class="d-flex">
+
+    <div>
+        <label style="font-size: 150%">Etsi Tuote</label>
+
+        <form class="d-flex">
+
+            <input class="form-control me-sm-2" type="text" name="SearchString" value=@ViewBag.Search>
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Hae</button>
+        </form>
+    </div>
+
+
+    <div class="nav-item dropdown" style="margin-left: 20%">
+        <label style="font-size: 150%">Järjestele</label>
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">@ViewBag.Sort</a>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" @Html.ActionLink("A-Ö", "Index", new { sortOrder = "A-Ö", searchString = ViewBag.Search, Page = ViewBag.CurrentPage }) </a>
+
+            <a class="dropdown-item" @Html.ActionLink("Ö-A", "Index", new { sortOrder = "Ö-A", searchString = ViewBag.Search, Page = ViewBag.CurrentPage }) </a>
+
+            <a class="dropdown-item" @Html.ActionLink("Kallein ensin", "Index", new { sortOrder = "Kallein ensin", searchString = ViewBag.Search, Page = ViewBag.CurrentPage })</a>
+
+            <a class="dropdown-item" @Html.ActionLink("Halvin ensin", "Index", new { sortOrder = "Halvin ensin", searchString = ViewBag.Search, Page = ViewBag.CurrentPage })</a>
+            <div class="dropdown-divider"></div>
+        </div>
+    </div>
+
+    <h3 style="margin-left: 30%; margin-top: 30px">
+        <a class="btn btn-secondary col-12" @Html.ActionLink("Uusi Tuote", "Create")
+    </h3>
+
+</div>
+<br />
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nimi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ahinta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Kuva)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nimi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ahinta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Kuva)
+            </td>
+            <td>
+               <a class="btn btn-secondary my-2 my-sm-0" @Html.ActionLink("Muuta", "Edit", new { id = item.TuoteID })
+               <a class="btn btn-primary my-2 my-sm-0" @Html.ActionLink("Poista", "Delete", new { id = item.TuoteID })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div class="d-flex">
+    <nav aria-label="Page-Nav" style="overflow:auto; box-sizing:border-box">
+        <ul class="pagination">
+            @for (int i = 1; i <= ViewBag.nPages; i++)
+            {
+                if (i == ViewBag.CurrentPage)
+                {
+                    <li class="page-item active">
+                        <a class="page-link" @Html.ActionLink(i.ToString(), "Index",
+                                            new { sortOrder = ViewBag.Sort, searchString = ViewBag.Search, page = i })
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item">
+                        <a class="page-link" @Html.ActionLink(i.ToString(), "Index",
+                                            new { sortOrder = ViewBag.Sort, searchString = ViewBag.Search, page = i })
+                    </li>
+                }
+            }
+        </ul>
+    </nav>
+</div>

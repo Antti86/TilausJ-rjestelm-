@@ -1,0 +1,43 @@
+﻿@model IEnumerable<TilausJärjestelmä.Models.TilausRiviVM>
+
+@{
+    ViewBag.Title = "Tilausrivit";
+}
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Tuote)
+        </th>
+        <th>
+            Määrä
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ahinta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TilausriviID)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tuote)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.maara)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ahinta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TilausriviID)
+            </td>
+
+        </tr>
+    }
+
+</table>

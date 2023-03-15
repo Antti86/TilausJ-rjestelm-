@@ -1,0 +1,92 @@
+﻿@model IEnumerable<TilausJärjestelmä.Models.Postitoimipaikat>
+
+<h2>Postitoimipaikat (@ViewBag.AllItems)</h2>
+
+<div class="d-flex">
+    @* Etsintä boksi! *@
+    <div>
+        <label style="font-size: 150%">Etsi Postitoimipaikka</label>
+        <form class="d-flex">
+            <input class="form-control me-sm-2" type="text" name="SearchString" value=@ViewBag.Search>
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Hae</button>
+        </form>
+    </div>
+    @* Lajittelu valikko! *@
+    <div class="nav-item dropdown" style="margin-left: 20%">
+        <label style="font-size: 150%">Järjestele</label>
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">@ViewBag.Sort</a>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" @Html.ActionLink("A-Ö", "Index", new { sortOrder = "A-Ö", searchString = ViewBag.Search, Page = ViewBag.CurrentPage })</a>
+
+            <a class="dropdown-item" @Html.ActionLink("Ö-A", "Index", new { sortOrder = "Ö-A", searchString = ViewBag.Search, Page = ViewBag.CurrentPage })</a>
+
+            <a class="dropdown-item" @Html.ActionLink("Postinumero laskeva", "Index", new { sortOrder = "Postinumero laskeva", searchString = ViewBag.Search, Page = ViewBag.CurrentPage })</a>
+
+            <a class="dropdown-item" @Html.ActionLink("Postinumero nouseva", "Index", new { sortOrder = "Postinumero nouseva", searchString = ViewBag.Search, Page = ViewBag.CurrentPage })</a>
+            <div class="dropdown-divider"></div>
+        </div>
+    </div>
+
+    @* Create toiminto! *@
+    <h3 style="margin-left: 30%; margin-top: 30px">
+        <a class="btn btn-secondary col-12" @Html.ActionLink("Uusi Postitoimipaikka", "Create")
+    </h3>
+
+</div>
+<br />
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Postitoimipaikka)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Postinumero)
+        </th>
+        <th>
+
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Postitoimipaikka)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Postinumero)
+            </td>
+            <td>
+                @Html.ActionLink("Muuta", "Edit", new { id = item.Postinumero }) |
+                @Html.ActionLink("Poista", "Delete", new { id = item.Postinumero })
+            </td>
+        </tr>
+    }
+</table>
+
+                        @* Sivu navigointi ja järjestely! *@
+<div class="d-flex">
+    <nav aria-label="Page-Nav" style="overflow:auto; box-sizing:border-box" >
+        <ul class="pagination">
+            @for (int i = 1; i <= ViewBag.nPages; i++)
+            {
+                if (i == ViewBag.CurrentPage)
+                {
+                    <li class="page-item active">
+                        <a class="page-link" @Html.ActionLink(i.ToString(), "Index",
+                                            new { sortOrder = ViewBag.Sort, searchString = ViewBag.Search, page = i })
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item">
+                        <a class="page-link" @Html.ActionLink(i.ToString(), "Index",
+                                            new { sortOrder = ViewBag.Sort, searchString = ViewBag.Search, page = i })
+                    </li>
+                }
+            }
+        </ul>
+    </nav>
+</div>
+

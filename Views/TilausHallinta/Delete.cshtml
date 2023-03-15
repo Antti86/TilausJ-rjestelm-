@@ -1,0 +1,129 @@
+﻿@model TilausJärjestelmä.Models.TilausViewModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<div class="d-flex justify-content-between">
+    <h2>Poista Tilaus</h2>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color col-12" style="width: 300px">
+            <input type="submit" value="Poista" name="Delete" class="btn btn-primary col-5" />
+            <a class="btn btn-secondary col-5" href="~/TilausHallinta/Index">Takaisin</a>
+        </div>
+    }
+</div>
+
+
+<h3>Haluatko varmasti poistaa tämän tilauksen?</h3>
+<div class="d-flex">
+    <hr />
+    <dl class="d-lg-table-cell" style="margin:0px 25px 0px 0px; height: 260px">
+        <dt>
+            @Html.DisplayNameFor(model => model.Asiakas)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Asiakas)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hinta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hinta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Toimitusosoite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Toimitusosoite)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Postinumero)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Postinumero)
+        </dd>
+    </dl>
+    <dl class="d-lg-table-cell" style="margin: 0px 25px 0px 0px; height: 260px">
+        <dt>
+            @Html.DisplayNameFor(model => model.Postitoimipaikka)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Postitoimipaikka)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tilauspvm)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tilauspvm)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Toimituspvm)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Toimituspvm)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TilausID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TilausID)
+        </dd>
+
+    </dl>
+
+    <table class="table">
+        <tr>
+            <th>
+                Tuote
+            </th>
+            <th>
+                Määrä
+            </th>
+            <th>
+                Ahinta
+            </th>
+            <th>
+                TilausriviID
+            </th>
+        </tr>
+
+        @foreach (var item in ViewData["Rivit"] as List<TilausJärjestelmä.Models.TilausRiviVM>)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tuote)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.maara)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ahinta)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TilausriviID)
+                </td>
+            </tr>
+        }
+
+    </table>
+
+
+</div>
+<br />

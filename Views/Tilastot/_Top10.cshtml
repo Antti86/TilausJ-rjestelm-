@@ -1,0 +1,42 @@
+﻿@model TilausJärjestelmä.Models.Tilastot.Top10TuotteetVM
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://code.jquery.com/jquery-1.10.0.min.js"
+        integrity="sha256-2+LznWeWgL7AJ1ciaIG5rFP7GKemzzl+K75tRyTByOE="
+        crossorigin="anonymous"></script>
+
+@section scripts
+{
+    <script>
+        const ctx = document.getElementById('myChart');
+
+        let labelsChart = @Html.Raw(Json.Encode(ViewBag.NimiLista));
+        let dataChart = @Html.Raw(Json.Encode(ViewBag.ArvoLista));
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labelsChart,
+                datasets: [{
+                    label: 'Top 10 myydyimmät tuotteet',
+                    data: dataChart,
+                    borderWidth: 10
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+}
+<div >
+    <div>
+        <div>
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+</div>
+
