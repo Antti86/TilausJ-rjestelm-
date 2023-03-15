@@ -1,0 +1,28 @@
+﻿
+@model TilausJärjestelmä.Models.Tilastot.TilauksetViikonPaivaVM
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("VIikonpäivä")
+        </th>
+        <th>
+            @Html.DisplayName("Tilaukset")
+        </th>
+    </tr>
+
+    @foreach (var item in Model.Viikko)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Key)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Value)
+            </td>
+        </tr>
+    }
+
+</table>

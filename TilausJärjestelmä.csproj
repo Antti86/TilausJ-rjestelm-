@@ -131,6 +131,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KayttajienHallintasController.cs" />
     <Compile Include="Controllers\PostitoimipaikatsController.cs" />
+    <Compile Include="Controllers\TilastotController.cs" />
     <Compile Include="Controllers\TilausHallintaController.cs" />
     <Compile Include="Controllers\TuotteetsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -151,12 +152,15 @@
     <Compile Include="Models\Postitoimipaikat.cs">
       <DependentUpon>TilausDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Tilastot\TilastoKokoelmaVM.cs" />
+    <Compile Include="Models\Tilastot\TilauksetViikonPaivaVM.cs" />
+    <Compile Include="Models\Tilastot\Top10TuotteetVM.cs" />
     <Compile Include="Models\Tilaukset.cs">
       <DependentUpon>TilausDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TilausModel\TilausLuontiVM.cs" />
     <Compile Include="Models\TilausModel\TilausViewModelBase.cs" />
     <Compile Include="Models\TilausRiviModel\TilausRiviCache.cs" />
-    <Compile Include="Models\TilausModel\TilausLuontiVM.cs" />
     <Compile Include="Models\TilausRiviModel\TilausRiviVM.cs" />
     <Compile Include="Models\TilausDb.Context.cs">
       <AutoGen>True</AutoGen>
@@ -283,6 +287,9 @@
     <Content Include="Views\KayttajienHallintas\SalasananVaihto.cshtml" />
     <Content Include="Views\Shared\_SalasananVaihtoKehotus.cshtml" />
     <Content Include="Views\TilausHallinta\_TilausChart.cshtml" />
+    <Content Include="Views\Tilastot\Index.cshtml" />
+    <Content Include="Views\Tilastot\_Top10.cshtml" />
+    <Content Include="Views\Tilastot\_TilauksetViikonPaiva.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

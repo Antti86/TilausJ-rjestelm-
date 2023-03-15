@@ -10,7 +10,7 @@ namespace TilausJärjestelmä.Models
 {
     public class AuthFilter : ActionFilterAttribute,
     IAuthenticationFilter   //Customoitu AuthenticationFilter luokka mikä valvoo ja hoitaa että ennen jokaista actionia kirjautuminen on
-                            // tehty ja että kirjautumis taso on vaadittu
+                            //tehty ja että kirjautumis taso on vaadittu
     {
         public int RequiredLevel { get; set; } //Tämä asetetaan ennen controllerin actionia
         public void OnAuthentication(AuthenticationContext filterContext)

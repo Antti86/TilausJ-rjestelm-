@@ -1,26 +1,25 @@
-﻿
+﻿@model TilausJärjestelmä.Models.Tilastot.Top10TuotteetVM
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://code.jquery.com/jquery-1.10.0.min.js"
         integrity="sha256-2+LznWeWgL7AJ1ciaIG5rFP7GKemzzl+K75tRyTByOE="
         crossorigin="anonymous"></script>
-<script>
-    $(document).ready(function () {
-        $("#Viesti").modal('show');
-    });
-</script>
+
 @section scripts
 {
     <script>
         const ctx = document.getElementById('myChart');
 
+        let labelsChart = @Html.Raw(Json.Encode(ViewBag.NimiLista));
+        let dataChart = @Html.Raw(Json.Encode(ViewBag.ArvoLista));
         new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                labels: labelsChart,
                 datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
-                    borderWidth: 1
+                    label: 'Top 10 myydyimmät tuotteet',
+                    data: dataChart,
+                    borderWidth: 10
                 }]
             },
             options: {
@@ -32,17 +31,11 @@
             }
         });
     </script>
-
-
 }
-
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-4">
+<div >
+    <div>
+        <div>
             <canvas id="myChart"></canvas>
-        </div>
-        <div class="col-sm-4">
-            <canvas id="myChart2"></canvas>
         </div>
     </div>
 </div>
