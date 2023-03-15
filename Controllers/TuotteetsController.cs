@@ -59,23 +59,6 @@ namespace TilausJärjestelmä.Controllers
             return View(tuotteet.ToList());
         }
 
-
-
-        // GET: Tuotteets/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Tuotteet tuotteet = db.Tuotteet.Find(id);
-            if (tuotteet == null)
-            {
-                return HttpNotFound();
-            }
-            return View(tuotteet);
-        }
-
         // GET: Tuotteets/Create
         [AuthFilter(RequiredLevel = 2)]
         public ActionResult Create()

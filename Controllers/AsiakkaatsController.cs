@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services.Description;
 using System.Web.UI;
 using TilausJärjestelmä.Models;
 
@@ -66,7 +67,14 @@ namespace TilausJärjestelmä.Controllers
         [AuthFilter(RequiredLevel = 2)]
         public ActionResult Create()
         {
-            ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postinumero");
+            var posti = db.Postitoimipaikat;
+            IEnumerable<SelectListItem> selectPostiList = from p in posti
+                                                          select new SelectListItem
+                                                          {
+                                                              Value = p.Postinumero,
+                                                              Text = p.Postinumero + " " + p.Postitoimipaikka
+                                                          };
+            ViewBag.Postinumero = new SelectList(selectPostiList, "Value", "Text", posti.First());
             return View();
         }
 
@@ -81,16 +89,23 @@ namespace TilausJärjestelmä.Controllers
             
             if (ModelState.IsValid)
             {
+                var posti = db.Postitoimipaikat;
+                IEnumerable<SelectListItem> selectPostiList = from p in posti
+                                                              select new SelectListItem
+                                                              {
+                                                                  Value = p.Postinumero,
+                                                                  Text = p.Postinumero + " " + p.Postitoimipaikka
+                                                              };
                 if (asiakkaat.Nimi == null || asiakkaat.Nimi == "")
                 {
                     ModelState.AddModelError("Nimi", "Nimi ei voi olla tyhjä!");
-                    ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postinumero", asiakkaat.Postinumero);
+                    ViewBag.Postinumero = new SelectList(selectPostiList, "Value", "Text", asiakkaat.Postinumero);
                     return View(asiakkaat);
                 }
                 if (asiakkaat.Osoite == null || asiakkaat.Osoite == "")
                 {
                     ModelState.AddModelError("Osoite", "Osoite ei voi olla tyhjä!");
-                    ViewBag.Postinumero = new SelectList(db.Postitoimipaikat, "Postinumero", "Postinumero", asiakkaat.Postinumero);
+                    ViewBag.Postinumero = new SelectList(selectPostiList, "Value", "Text", asiakkaat.Postinumero);
                     return View(asiakkaat);
                 }
                 db.Asiakkaat.Add(asiakkaat);

@@ -18,6 +18,7 @@ namespace TilausJärjestelmä
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("fi-FI");
             Application_BeginRequest();
         }
         protected void Application_BeginRequest()
@@ -28,7 +29,6 @@ namespace TilausJärjestelmä
             currentCulture.NumberFormat.CurrencyDecimalSeparator = ".";
 
             Thread.CurrentThread.CurrentCulture = currentCulture;
-            //Thread.CurrentThread.CurrentUICulture = currentCulture;
         }
     }
 }

@@ -28,7 +28,7 @@ namespace TilausJärjestelmä.Controllers
         {
             return PartialView(TilausRiviVM.GetViewModelList(id));
         }
-
+        [AuthFilter(RequiredLevel = 2)]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -45,8 +45,10 @@ namespace TilausJärjestelmä.Controllers
             ViewData["Rivit"] = rivit;
             return View(t);
         }
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [AuthFilter(RequiredLevel = 2)]
         public ActionResult DeleteConfirmed(int id)
         {
             //Haetaan ensin kaikki tilausrivit mitkä on poistettavan tilauksen alla

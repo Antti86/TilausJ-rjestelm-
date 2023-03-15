@@ -22,7 +22,7 @@
         <th>
             @Html.DisplayName("Turvallisuus taso")
         </th>
-        <th></th>
+        <th>Toiminnot</th>
     </tr>
 
     @foreach (var item in Model)
@@ -34,10 +34,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Level)
             </td>
-            <td>
-                @Html.ActionLink("Muuta oikeuksia", "Edit", new { id = item.LoginId }) |
 
-                @Html.ActionLink("Poista käyttäjä", "Delete", new { id = item.LoginId })
+            <td>
+                <a class="btn btn-secondary my-2 my-sm-0" @Html.ActionLink("Muuta oikeuksia", "Edit", new { id = item.LoginId })
+               <a class="btn btn-primary my-2 my-sm-0" @Html.ActionLink("Poista käyttäjä", "Delete", new { id = item.LoginId })
             </td>
         </tr>
     }

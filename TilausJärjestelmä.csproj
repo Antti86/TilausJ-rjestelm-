@@ -261,7 +261,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Tuotteets\Create.cshtml" />
     <Content Include="Views\Tuotteets\Delete.cshtml" />
-    <Content Include="Views\Tuotteets\Details.cshtml" />
     <Content Include="Views\Tuotteets\Edit.cshtml" />
     <Content Include="Views\Tuotteets\Index.cshtml" />
     <Content Include="Views\Asiakkaats\Create.cshtml" />
